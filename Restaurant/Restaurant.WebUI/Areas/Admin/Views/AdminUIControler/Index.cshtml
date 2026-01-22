@@ -1,0 +1,38 @@
+﻿
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    @await Component.InvokeAsync("AdminUIHeadViewComponentPartial") 
+</head>
+
+<body>
+
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+        <header class="topbar" data-navbarbg="skin5">
+
+            @await Component.InvokeAsync("AdminUINavbarViewComponentPartial")
+
+        </header>
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+
+            @await Component.InvokeAsync("AdminUISidebarViewComponentPartial")
+
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            @await Component.InvokeAsync("AdminUIFooterViewComponentPartial")
+        </div>
+    </div>
+    @await Component.InvokeAsync("AdminUIScriptsViewComponentPartial")
+</body>
+
+</html>
