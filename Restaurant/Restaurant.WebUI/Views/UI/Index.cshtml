@@ -1,0 +1,22 @@
+﻿
+<!doctype html>
+<html class="no-js" lang="zxx">
+ @await Component.InvokeAsync("_HeadUILayoutComponentPartial")
+<body>
+    @await Component.InvokeAsync("_NavbarUILayoutComponentPartial")
+  
+
+    <div class="bradcam_area breadcam_bg_2">
+        <h3>Get in Touch</h3>
+    </div>
+
+    <section class="contact-section">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </section>
+   
+    @await Component.InvokeAsync("_FooterUILayoutComponentPartial")
+</body>
+
+</html>
