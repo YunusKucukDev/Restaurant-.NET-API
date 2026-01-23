@@ -1,0 +1,51 @@
+﻿@model List<ResultBranch2_Dto>
+@{
+    ViewData["Title"] = "Şube1";
+    Layout = "~/Areas/Admin/Views/AdminUIControler/Index.cshtml";
+    int count = 0;
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title m-b-0">Şube 2 İşlemleri</h5>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Şube 2 İsim</th>
+                        <th scope="col">Telefon</th>
+                        <th scope="col">Mail</th>
+                        <th scope="col">Şehir</th>
+                        <th scope="col">Adres</th>
+                        <th scope="col">facebook</th>
+                        <th scope="col">instagram</th>
+                        <th scope="col">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <th scope="row">@count</th>
+                            <td>@item.Name</td>
+                            <td>@item.PhoneNumber</td>
+                            <td>@item.Mail</td>
+                            <td>@item.City</td>
+                            <td>@item.Address</td>
+                            <td>@item.FacebookUrl</td>
+                            <td>@item.InstagramUrl</td>
+                            <td>
+                                <div class="button-group-area">
+                                    <a class="btn btn-primary btn-sm" href="~/Admin/Branch2_Information/UpdateBranch2/@item.BranchId" >Güncelle</a>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

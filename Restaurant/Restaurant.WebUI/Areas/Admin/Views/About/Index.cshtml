@@ -1,0 +1,135 @@
+﻿@model List<ResultAboutDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminUIControler/Index.cshtml";
+    int count = 0;  
+}
+
+<style>
+/* Masaüstü + Mobil uyum */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.status-yes {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.status-no {
+    color: #6c757d;
+}
+
+/* Mobil düzen */
+@@media (max-width: 768px) {
+    .card {
+        margin: 10px;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    table th, table td {
+        white-space: nowrap;
+        font-size: 0.85rem;
+    }
+}
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title m-b-0">Şube 1 İşlemleri</h5>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Açıklama</th>
+                            <th>Başlık</th>
+                            <th>İşyeri Resim 1</th>
+                            <th>İşyeri Resim 2</th>
+                            <th>Galeri 1</th>
+                            <th>Galeri 2</th>
+                            <th>Galeri 3</th>
+                            <th>Galeri 4</th>
+                            <th>Galeri 5</th>
+                            <th>Galeri 6</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td>@count</td>
+                                <td>@item.Description</td>
+                                <td>@item.Title</td>
+
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.BranchImage1))
+                                    {
+                                        <span class="status-yes">Var</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-no">Yok</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.BranchImage2))
+                                    {
+                                        <span class="status-yes">Var</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-no">Yok</span>
+                                    }
+                                </td>
+
+                                <td>@(string.IsNullOrEmpty(item.GalleryImage1) ? 
+                                    Html.Raw("<span class='status-no'>Yok</span>") : 
+                                    Html.Raw("<span class='status-yes'>Var</span>"))</td>
+
+                                <td>@(string.IsNullOrEmpty(item.GalleryImage2) ? 
+                                    Html.Raw("<span class='status-no'>Yok</span>") : 
+                                    Html.Raw("<span class='status-yes'>Var</span>"))</td>
+
+                                <td>@(string.IsNullOrEmpty(item.GalleryImage3) ? 
+                                    Html.Raw("<span class='status-no'>Yok</span>") : 
+                                    Html.Raw("<span class='status-yes'>Var</span>"))</td>
+
+                                <td>@(string.IsNullOrEmpty(item.GalleryImage4) ? 
+                                    Html.Raw("<span class='status-no'>Yok</span>") : 
+                                    Html.Raw("<span class='status-yes'>Var</span>"))</td>
+
+                                <td>@(string.IsNullOrEmpty(item.GalleryImage5) ? 
+                                    Html.Raw("<span class='status-no'>Yok</span>") : 
+                                    Html.Raw("<span class='status-yes'>Var</span>"))</td>
+
+                                <td>@(string.IsNullOrEmpty(item.GalleryImage6) ? 
+                                    Html.Raw("<span class='status-no'>Yok</span>") : 
+                                    Html.Raw("<span class='status-yes'>Var</span>"))</td>
+
+                                <td>
+                                    <a class="btn btn-primary btn-sm"
+                                       href="~/Admin/About/UpdateAbout/@item.AboutId">
+                                        Güncelle
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+

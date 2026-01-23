@@ -19,14 +19,12 @@ namespace Restaurant.OcelotGateWay
 
             var app = builder.Build();
 
-            app.UseHttpsRedirection();
 
            
-            app.UseAuthentication();
-            app.UseAuthorization();
+           
 
-         
-            app.UseOcelot();
+
+            app.UseOcelot().Wait();
 
             app.Run();
 

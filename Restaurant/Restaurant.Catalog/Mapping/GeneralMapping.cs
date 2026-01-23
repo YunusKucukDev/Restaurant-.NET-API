@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Restaurant.Catalog.Dtos.About;
 using Restaurant.Catalog.Dtos.Branch1_Dtos;
 using Restaurant.Catalog.Dtos.Branch2_Dtos;
 using Restaurant.Catalog.Entities;
@@ -18,6 +19,11 @@ namespace Restaurant.Catalog.Mapping
             CreateMap<Branch2_Information, GetByIdBranc2_Dto>().ReverseMap();
             CreateMap<Branch2_Information, CreateBranc2_Dto>().ReverseMap();
             CreateMap<Branch2_Information, UpdateBranc2_Dto>().ReverseMap();
+
+            CreateMap<About, ResultAboutDto>().ReverseMap();
+            CreateMap<About, GetByIdAboutDto>().ReverseMap();
+            CreateMap<About, CreateAboutDto>().ReverseMap();
+            CreateMap<About, UpdateAboutDto>().ReverseMap();
         }
         
     }

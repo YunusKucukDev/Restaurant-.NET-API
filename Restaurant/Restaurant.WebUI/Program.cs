@@ -1,13 +1,18 @@
+using Restaurant.WebUI.Services.Catalog.AboutService;
 using Restaurant.WebUI.Services.Catalog.Branch1_InformationServices;
 using Restaurant.WebUI.Services.Catalog.Branch2_InformationServices;
 using Restaurant.WebUI.settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddControllersWithViews();
 
 var values = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
+
 
 
 builder.Services.AddHttpClient<IBranch1_InformationService, Branch1_InformationService>(opt =>
@@ -20,6 +25,11 @@ builder.Services.AddHttpClient<IBranch2_InformationService, Branch2_InformationS
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}/");
 });
 
+builder.Services.AddHttpClient<IAboutService, AboutService>(opt =>
+{
+    opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}/");
+});
+
 
 
 var app = builder.Build();
@@ -28,7 +38,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

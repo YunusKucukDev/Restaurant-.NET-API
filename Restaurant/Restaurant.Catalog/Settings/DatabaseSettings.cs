@@ -6,6 +6,7 @@
         public string DatabaseName { get; set; }
         public string Branch2_InformationCollectionName { get; set; }
         public string Branch1_InformationCollectionName { get; set; }
+        public string AboutCollectionName { get; set; }
        
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 namespace Restaurant.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/Branch1_Information/")]
     public class Branch1_InformationController : Controller
     {
         private readonly IBranch1_InformationService _branch1_InformationService;
@@ -28,26 +29,23 @@ namespace Restaurant.WebUI.Areas.Admin.Controllers
             var values = await _branch1_InformationService.GetByIdBranch1_InformationById(id);
             return View(values);
         }
-        
-        [Route("UpdateBranch1")]
+
+        [Route("UpdateBranch1/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> UpdateBranch1(string id)
+        {
+            var values = await _branch1_InformationService.GetByIdBranch1_InformationById(id);
+            return View(values);
+        }
+
+
+        [Route("UpdateBranch1/{id}")]
+        [HttpPost]
         public async Task<IActionResult> UpdateBranch1(UpdateBranch1_Dto dto)
         {
             await _branch1_InformationService.UpdateBranch1_Information(dto);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Branch1_Information");
         }
-        [Route("CreateBranch1")]
-        public async Task<IActionResult> CreateBranch1(CreateBranch1_Dto dto)
-        {
-            await _branch1_InformationService.CreateBranch1_Information(dto);
-            return RedirectToAction("Index");
-        }
-
-        public async Task<IActionResult> DeleteBranch1(string id)
-        {
-            await _branch1_InformationService.DeleteBranch1_Information(id);
-            return RedirectToAction("Index");
-        }
-
 
     }
 }

@@ -1,0 +1,183 @@
+﻿@model UpdateAboutDto
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/AdminUIControler/Index.cshtml";
+    
+}
+
+<style>
+    @@media (max-width: 768px) {
+        .card
+
+    {
+        margin: 10px;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    textarea.form-control {
+        min-height: 180px;
+    }
+
+    }
+</style>
+
+
+
+<div class="row justify-content-center">
+
+
+
+    <div class="col-12 col-md-6">
+        <div class="card">
+            <form class="form-horizontal" method="post" asp-action="UpdateAbout">
+                <input type="hidden" asp-for="AboutId" />
+
+                <div class="card-body">
+                    <h4 class="card-title text-center mb-4">
+                        Hakkımızda Güncelleme İşlemi
+                    </h4>
+
+                    <!-- Açıklama -->
+                    <div class="form-group row">
+                        <label class="col-12 col-md-3 text-md-right col-form-label">
+                            Açıklama
+                        </label>
+                        <div class="col-12 col-md-9">
+                            <textarea rows="11"
+                                      class="form-control"
+                                      asp-for="Description"
+                                      placeholder="İşletmenizi tanımlayan bir paragraf yazınız">
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <!-- Başlık -->
+                    <div class="form-group row">
+                        <label class="col-12 col-md-3 text-md-right col-form-label">
+                            Başlık
+                        </label>
+                        <div class="col-12 col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   asp-for="Title"
+                                   placeholder="Başlık giriniz">
+                        </div>
+                    </div>
+
+                    <!-- İşyeri Fotoğrafı 1 -->
+                    <div class="form-group row">
+                        <label class="col-12 col-md-3 text-md-right col-form-label">
+                            İşyeri Fotoğrafı 1
+                        </label>
+                        <div class="col-12 col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   asp-for="BranchImage1"
+                                   placeholder="Url">
+                        </div>
+                    </div>
+
+                    <!-- İşyeri Fotoğrafı 2 -->
+                    <div class="form-group row">
+                        <label class="col-12 col-md-3 text-md-right col-form-label">
+                            İşyeri Fotoğrafı 2
+                        </label>
+                        <div class="col-12 col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   asp-for="BranchImage2"
+                                   placeholder="Url">
+                        </div>
+                    </div>
+
+                    <!-- Ürün Görselleri -->
+                    <div class="form-group row">
+                        <label class="col-12 col-md-3 text-md-right col-form-label">
+                            Ürün Görseli 1
+                        </label>
+                        <div class="col-12 col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   asp-for="GalleryImage1"
+                                   placeholder="Url">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-12 col-md-3 text-md-right col-form-label">
+                            Ürün Görseli 2
+                        </label>
+                        <div class="col-12 col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   asp-for="GalleryImage2"
+                                   placeholder="Url">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-12 col-md-3 text-md-right col-form-label">
+                            Ürün Görseli 3
+                        </label>
+                        <div class="col-12 col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   asp-for="GalleryImage3"
+                                   placeholder="Url">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-12 col-md-3 text-md-right col-form-label">
+                            Ürün Görseli 4
+                        </label>
+                        <div class="col-12 col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   asp-for="GalleryImage4"
+                                   placeholder="Url">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-12 col-md-3 text-md-right col-form-label">
+                            Ürün Görseli 5
+                        </label>
+                        <div class="col-12 col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   asp-for="GalleryImage5"
+                                   placeholder="Url">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-12 col-md-3 text-md-right col-form-label">
+                            Ürün Görseli 6
+                        </label>
+                        <div class="col-12 col-md-9">
+                            <input type="text"
+                                   class="form-control"
+                                   asp-for="GalleryImage6"
+                                   placeholder="Url">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="border-top">
+                    <div class="card-body">
+                        <button type="submit" class="btn btn-primary w-100 w-md-auto">
+                            Güncelle
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
