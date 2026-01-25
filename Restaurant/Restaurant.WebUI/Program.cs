@@ -3,6 +3,7 @@ using Restaurant.WebUI.Services.Catalog.Branch1_InformationServices;
 using Restaurant.WebUI.Services.Catalog.Branch2_InformationServices;
 using Restaurant.WebUI.Services.Catalog.CategoryService;
 using Restaurant.WebUI.Services.Catalog.ProductService;
+using Restaurant.WebUI.Services.Catalog.SpecialMenuService;
 using Restaurant.WebUI.settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +35,7 @@ builder.Services.AddHttpClient<IAboutService, AboutService>(opt =>
 
 builder.Services.AddHttpClient<ICategoryService, CategoryService>();
 builder.Services.AddHttpClient<IProductService, ProductService>();
+builder.Services.AddHttpClient<ISpecialMenuService, SpecialMenuService>();
 
 
 

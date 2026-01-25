@@ -1,0 +1,150 @@
+﻿@model CreateSpecialMenuDtos
+@{
+    ViewData["Title"] = "CreateCategory";
+    Layout = "~/Areas/Admin/Views/AdminUIControler/Index.cshtml";
+}
+
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 52px;
+        height: 26px;
+        margin-left: 10px;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        background-color: #ccc;
+        border-radius: 26px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: .3s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+    input:checked + .slider {
+        background-color: #28a745;
+    }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+    .status-text {
+        font-weight: 600;
+        margin-left: 10px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <form method="post" asp-action="CreateSpecialMenu">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Spesiyal Menü Güncelleme</h4>
+
+                    <!-- Name -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 text-right col-form-label">Spesiyal Menü İsmi</label>
+                        <div class="col-sm-8">
+                            <input asp-for="SpecialMenuName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 text-right col-form-label">Spesiyal Menü Fiyatı</label>
+                        <div class="col-sm-8">
+                            <input asp-for="Price" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 text-right col-form-label">Spesiyal Menü Resim Url</label>
+                        <div class="col-sm-8">
+                            <input asp-for="ImageUrl" class="form-control" />
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 text-right col-form-label">Açıklama</label>
+                        <div class="col-sm-8">
+                            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    
+
+                    <!-- IsActive Switch -->
+                    <div class="form-group row align-items-center">
+                        <label class="col-sm-4 text-right col-form-label">
+                            Spesiyal Menüde Gösterilsin mi?
+                        </label>
+
+                        <div class="col-sm-8 d-flex align-items-center">
+                            <label class="switch mb-0">
+                                <input type="checkbox" id="isActiveCheckbox" @(Model.IsAvailable ? "checked" : "") />
+                                <span class="slider"></span>
+                            </label>
+
+                            <span id="statusText" class="status-text">
+                                @(Model.IsAvailable ? "Aktif" : "Pasif")
+                            </span>
+
+                            <!-- GERÇEK DEĞERİ TAŞIYAN INPUT -->
+                            <input type="hidden"
+                                   name="IsAvailable"
+                                   id="isActiveHidden"
+                                   value="@(Model.IsAvailable.ToString().ToLower())" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-top">
+                    <div class="card-body text-right">
+                        <button type="submit" class="btn btn-primary">
+                            Kaydet
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-3"></div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkbox = document.getElementById("isActiveCheckbox");
+        const hidden = document.getElementById("isActiveHidden");
+        const text = document.getElementById("statusText");
+
+        checkbox.addEventListener("change", function () {
+            hidden.value = this.checked ? "true" : "false";
+            text.innerText = this.checked ? "Aktif" : "Pasif";
+        });
+    });
+</script>

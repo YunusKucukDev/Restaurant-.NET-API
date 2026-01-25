@@ -6,6 +6,8 @@ using Restaurant.Catalog.Services.Branch2_InformationService;
 using Restaurant.Catalog.Services.AboutService;
 using Restaurant.Catalog.Services.ProductService;
 using Restaurant.Catalog.Services.CategoryService;
+using Restaurant.Catalog.Dtos.SpecialMenuDtos;
+using Restaurant.Catalog.Services.SpecialMenuService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,7 @@ builder.Services.AddScoped<IBranch2_InformationService, Branch2_InformationServi
 builder.Services.AddScoped<IAboutService, AboutService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ISpecialMenuService, SpecialMenuService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

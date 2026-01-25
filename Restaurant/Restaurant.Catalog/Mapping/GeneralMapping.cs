@@ -4,6 +4,7 @@ using Restaurant.Catalog.Dtos.Branch1_Dtos;
 using Restaurant.Catalog.Dtos.Branch2_Dtos;
 using Restaurant.Catalog.Dtos.CategoryDtos;
 using Restaurant.Catalog.Dtos.ProductDtos;
+using Restaurant.Catalog.Dtos.SpecialMenuDtos;
 using Restaurant.Catalog.Entities;
 
 namespace Restaurant.Catalog.Mapping
@@ -51,6 +52,13 @@ namespace Restaurant.Catalog.Mapping
             CreateMap<Category, CreateCategoryDto>().ReverseMap();
             CreateMap<Category, UpdateCategoryDto>().ReverseMap();
             CreateMap<Category, GetByIdCategoryDto>().ReverseMap();
+
+
+            CreateMap<SpecialMenu, ResultSpecialMenuDto>().ReverseMap();
+            CreateMap<SpecialMenu, GetByIdSpecialMenuDto>().ReverseMap();
+            CreateMap<SpecialMenu, CreateSpecialMenuDto>().ReverseMap();
+            CreateMap<SpecialMenu, UpdateSpecialMenuDto>().ReverseMap();
+           
         }
         
     }

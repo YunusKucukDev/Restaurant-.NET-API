@@ -1,0 +1,79 @@
+﻿@using Restaurant.DtoLayer.CatalogDtos.MenuDtos.SpecialMenuDtos
+@model List<ResultSpecialMenuDtos>
+
+<style>
+    /* CONTAINER */
+    .Burger_President_here {
+        display: flex !important;
+        flex-wrap: wrap;
+        margin: -10px; /* gap simülasyonu (tema bozulmasın diye) */
+    }
+
+    /* CARD */
+    .single_Burger_President {
+        width: 50% !important; /* Desktop: 2 kolon */
+        padding: 10px; /* Kartlar arası boşluk */
+        box-sizing: border-box;
+        float: none !important;
+    }
+
+    /* MOBILE */
+    @@media (max-width: 768px) {
+        .single_Burger_President
+
+    {
+        width: 100% !important; /* Mobilde tek kolon */
+    }
+
+    }
+
+    /* CARD İÇİ */
+    .room_thumb {
+        height: 100%;
+    }
+
+        /* RESİM SABİT KALIR */
+        .room_thumb img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            display: block;
+        }
+
+    /* Gri arka planı kaldır */
+    .Burger_President_area {
+        background: transparent !important;
+        padding-bottom: 0 !important;
+    }
+
+    /* Tema row veya wrapper gri veriyorsa */
+    .Burger_President_here {
+        background: transparent !important;
+    }
+
+    /* Kartların altındaki boş gri alanı engeller */
+    .single_Burger_President {
+        margin-bottom: 20px;
+    }
+</style>
+<div class="Burger_President_area">
+    <div class="Burger_President_here">
+        @foreach (var item in Model)
+        {
+            <div class="single_Burger_President">
+            <div class="room_thumb">
+                <img src="@item.ImageUrl" alt="SpecialMenuImage">
+                <div class="room_heading d-flex justify-content-between align-items-center">
+                    <div class="room_heading_inner">
+                        <span>$@item.Price</span>
+                        <h3>@item.SpecialMenuName</h3>
+                        <p>@item.Description</p>
+                        <a href="#" class="boxed-btn3">Hemen Sipariş Ver</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
