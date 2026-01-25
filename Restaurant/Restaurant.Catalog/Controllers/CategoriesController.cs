@@ -30,6 +30,13 @@ namespace Restaurant.Catalog.Controllers
             return Ok(category);
         }
 
+        [HttpGet("WithProducts")]
+        public async Task<IActionResult> GetCategoriesWithProducts()
+        {
+            var values = await _categoryService.GetCategoriesWithProductsAsync();
+            return Ok(values);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
         {
