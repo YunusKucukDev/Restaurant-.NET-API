@@ -4,6 +4,8 @@ using System.Reflection;
 using Restaurant.Catalog.Services.Branch1_InformationService;
 using Restaurant.Catalog.Services.Branch2_InformationService;
 using Restaurant.Catalog.Services.AboutService;
+using Restaurant.Catalog.Services.ProductService;
+using Restaurant.Catalog.Services.CategoryService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,15 +22,17 @@ builder.Services.AddSingleton<IDatabaseSettings>(sp =>
 builder.Services.AddScoped<IBranch_InformationService, Branch1_InformationService>();
 builder.Services.AddScoped<IBranch2_InformationService, Branch2_InformationService>();
 builder.Services.AddScoped<IAboutService, AboutService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

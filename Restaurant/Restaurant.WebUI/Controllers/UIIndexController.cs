@@ -2,7 +2,7 @@
 
 namespace Restaurant.WebUI.Controllers
 {
-    public class UIController : Controller
+    public class UIIndexController : Controller
     {
         public IActionResult Index()
         {
