@@ -1,0 +1,3 @@
+[submodule "services/IdentityServer"]
+	path = services/IdentityServer
+	url = https://github.com/YunusKucukDev/Asp.net_Web_Api_E-Commerce-Web-Site.git
