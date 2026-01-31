@@ -1,10 +1,62 @@
 ﻿
 <!doctype html>
 <html class="no-js" lang="zxx">
+<style>
+
+    .floating-cart {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #ff6b00;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        z-index: 9999;
+        transition: transform 0.2s ease;
+    }
+
+        .floating-cart:hover {
+            transform: scale(1.08);
+        }
+
+    /* Ürün sayısı badge */
+    .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: red;
+        color: white;
+        font-size: 12px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @@media (max-width: 576px) {
+        .floating-cart {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            bottom: 15px;
+            right: 15px;
+        }
+    }
+</style>
  @await Component.InvokeAsync("_HeadUILayoutComponentPartial")
+
 <body>
     @await Component.InvokeAsync("_NavbarUILayoutComponentPartial")
-  
+
 
     <div class="bradcam_area breadcam_bg_2">
         <h3>Menu</h3>
@@ -14,8 +66,13 @@
         <div class="container">
             @RenderBody()
         </div>
+
+        <a href="/Cart/Index" class="floating-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">1</span>
+        </a>
     </section>
-   
+
     @await Component.InvokeAsync("_FooterUILayoutComponentPartial")
 </body>
 

@@ -8,8 +8,16 @@ using Restaurant.Catalog.Services.ProductService;
 using Restaurant.Catalog.Services.CategoryService;
 using Restaurant.Catalog.Dtos.SpecialMenuDtos;
 using Restaurant.Catalog.Services.SpecialMenuService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.Authority = "https://localhost:5001";
+                options.Audience = "ResourceCatalog";
+            });
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -43,6 +51,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

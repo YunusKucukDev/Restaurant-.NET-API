@@ -4,6 +4,7 @@ using Restaurant.WebUI.Services.Catalog.AboutService;
 
 namespace Restaurant.WebUI.Areas.Admin.Controllers
 {
+
     [Area("Admin")]
     [Route("Admin/About")]
     public class AboutController : Controller

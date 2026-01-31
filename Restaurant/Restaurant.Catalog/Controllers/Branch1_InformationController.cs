@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Catalog.Dtos.Branch1_Dtos;
 using Restaurant.Catalog.Services.Branch1_InformationService;
 
 namespace Restaurant.Catalog.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class Branch1_InformationController : ControllerBase
@@ -32,10 +34,11 @@ namespace Restaurant.Catalog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBranch1_Information(CreateBranc1_Dto createBranc1_Dto)
+        public async Task<IActionResult> CreateBranch1_Information(
+    [FromBody] CreateBranc1_Dto createBranc1_Dto)
         {
             await _branchInformationService.CreateBranch1_Information(createBranc1_Dto);
-            return Ok("Succesfull");
+            return Ok("Successful");
         }
 
         [HttpPut]

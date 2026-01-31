@@ -1,5 +1,8 @@
 ocelot -- 5000
-webUI -- 6000
+identitySerrver-5001
+webUI -- 7500
 
 
-Catalog -- 7070
+
+Catalog -- 7000
+basket -- 7001

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Catalog.Dtos.Branch2_Dtos;
 using Restaurant.Catalog.Services.Branch2_InformationService;
 
 namespace Restaurant.Catalog.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class Branch2_InformationController : ControllerBase
