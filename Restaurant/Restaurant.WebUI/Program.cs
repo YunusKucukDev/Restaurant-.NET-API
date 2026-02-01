@@ -9,6 +9,7 @@ using Restaurant.WebUI.Services.Catalog.CategoryService;
 using Restaurant.WebUI.Services.Catalog.ProductService;
 using Restaurant.WebUI.Services.Catalog.SpecialMenuService;
 using Restaurant.WebUI.Services.Concrete;
+using Restaurant.WebUI.Services.DiscountCoupon;
 using Restaurant.WebUI.Services.Interfaces;
 using Restaurant.WebUI.settings;
 
@@ -67,6 +68,7 @@ builder.Services.AddHttpClient<ICategoryService, CategoryService>().AddHttpMessa
 builder.Services.AddHttpClient<IProductService, ProductService>().AddHttpMessageHandler<ClientCredentialTokenHandler>();
 builder.Services.AddHttpClient<ISpecialMenuService, SpecialMenuService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 builder.Services.AddHttpClient<IBasketService, BasketService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddHttpClient<IDiscountcouponService, DiscountcouponService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
 
 

@@ -15,20 +15,40 @@ namespace Restaurant.WebUI.Services.Basket
         public async Task AddBasketItem(BasketItemDto basketItemDto)
         {
             var values = await GetBasket();
-            if (values != null)
+
+            //  Sepet yoksa oluştur
+            if (values == null)
             {
-                if (!values.BasketItems.Any(x => x.ProductId == basketItemDto.ProductId))
+                values = new BasketTotalDto
                 {
-                    values.BasketItems.Add(basketItemDto);
-                }
-                else
-                {
-                    values = new BasketTotalDto();
-                    values.BasketItems.Add(basketItemDto);
-                }
+                    BasketItems = new List<BasketItemDto>()
+                };
             }
+
+            //  Liste null ise oluştur
+            if (values.BasketItems == null)
+            {
+                values.BasketItems = new List<BasketItemDto>();
+            }
+
+            //  Aynı ürün var mı
+            var existingItem = values.BasketItems
+                .FirstOrDefault(x => x.ProductId == basketItemDto.ProductId);
+
+            if (existingItem != null)
+            {
+                //  Quantity artır
+                existingItem.Quantity += basketItemDto.Quantity;
+            }
+            else
+            {
+                //  Yeni ürün ekle
+                values.BasketItems.Add(basketItemDto);
+            }
+
             await SaveBasket(values);
         }
+
 
         public Task DeleteBasket(string userId)
         {

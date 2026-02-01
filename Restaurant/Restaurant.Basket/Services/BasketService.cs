@@ -12,15 +12,30 @@ namespace Restaurant.Basket.Services
         {
             _redisService = redisService;
         }
+
+
         public async Task DeleteBasket(string userId)
         {
             await _redisService.GetDb().KeyDeleteAsync(userId);
         }
+
+
         public async Task<BasketTotalDto> GetBasket(string userId)
         {
-            var existBasket = await _redisService.GetDb().StringGetAsync(userId);
-            return JsonSerializer.Deserialize<BasketTotalDto>(existBasket);
+            var json = await _redisService.GetDb().StringGetAsync(userId);
+
+            if (string.IsNullOrEmpty(json))
+            {
+                return new BasketTotalDto
+                {
+                    UserId = userId,
+                    BasketItems = new List<BasketItemDto>()
+                };
+            }
+            return JsonSerializer.Deserialize<BasketTotalDto>(json);
         }
+
+
         public async Task SaveBasket(BasketTotalDto basketTotalDto)
         {
             await _redisService.GetDb().StringSetAsync(basketTotalDto.UserId, JsonSerializer.Serialize(basketTotalDto));

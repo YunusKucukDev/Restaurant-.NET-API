@@ -1,0 +1,127 @@
+﻿@using Restaurant.DtoLayer.BasketDtos
+@model BasketTotalDto
+
+@{
+    ViewData["Title"] = "Sepetim";
+    Layout = "~/Views/UI/Index.cshtml";
+
+    var total = Model.TotalPrice;
+
+    decimal discountAmount = 0;
+    if (Model.DiscountRate.HasValue)
+    {
+        discountAmount = total * Model.DiscountRate.Value / 100;
+    }
+
+    var discountedTotal = total - discountAmount;
+
+    var tax = discountedTotal * 0.10m;
+    var finalTotal = discountedTotal + tax;
+}
+
+<h2 class="mb-4">🛒 Sepetim</h2>
+
+@if (Model == null || Model.BasketItems == null || !Model.BasketItems.Any())
+{
+    <div class="alert alert-warning">
+        Sepetiniz boş.
+    </div>
+}
+else
+{
+    <!-- 🧾 SEPET TABLOSU -->
+    <table class="table table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Ürün</th>
+                <th>Görsel</th>
+                <th>Adet</th>
+                <th>Birim Fiyat</th>
+                <th>Toplam</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BasketItems)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>
+                        <img src="@item.ProductImageUrl"
+                             style="width:60px;height:60px;object-fit:cover;" />
+                    </td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price ₺</td>
+                    <td>@(item.Price* item.Quantity) ₺</td>
+                    <td>
+                        <a asp-controller="Basket"
+                           asp-action="RemoveBasketItem"
+                           asp-route-id="@item.ProductId"
+                           class="btn btn-sm btn-danger">
+                            Sil
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- 🎟️ İNDİRİM KODU -->
+    <div class="card mt-3">
+        <div class="card-body">
+            <form asp-controller="Basket"
+                  asp-action="ApplyDiscount"
+                  method="post"
+                  class="d-flex gap-2">
+
+                <input type="text"
+                       name="code"
+                       class="form-control"
+                       placeholder="İndirim kodu giriniz"
+                       required />
+
+                <button class="btn btn-success">
+                    Uygula
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 💰 TOPLAM -->
+    <div class="card mt-4">
+        <div class="card-body">
+            <p><strong>Ara Toplam:</strong> @total ₺</p>
+
+            @if (Model.DiscountRate.HasValue)
+            {
+                <p class="text-success">
+                    <strong>İndirim:</strong>
+                    -@discountAmount ₺ (@Model.DiscountRate%)
+                </p>
+            }
+
+            <p><strong>KDV (%10):</strong> @tax ₺</p>
+
+            <hr />
+
+            <h4 class="text-success">
+                Ödenecek Tutar: @finalTotal ₺
+            </h4>
+        </div>
+    </div>
+}
+
+<!-- 🔁 ALT BUTONLAR -->
+<div class="mt-4 text-center">
+    <a asp-controller="Menu"
+       asp-action="Index"
+       class="btn btn-primary">
+        Alışverişe Devam Et
+    </a>
+
+    <a asp-controller="Order"
+       asp-action="Checkout"
+       class="btn btn-success ms-2">
+        Siparişi Tamamla
+    </a>
+</div>

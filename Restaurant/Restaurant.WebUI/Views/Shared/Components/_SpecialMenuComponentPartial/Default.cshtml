@@ -2,78 +2,100 @@
 @model List<ResultSpecialMenuDtos>
 
 <style>
-    /* CONTAINER */
-    .Burger_President_here {
-        display: flex !important;
-        flex-wrap: wrap;
-        margin: -10px; /* gap simülasyonu (tema bozulmasın diye) */
+    .special-menu-wrapper {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
     }
 
-    /* CARD */
-    .single_Burger_President {
-        width: 50% !important; /* Desktop: 2 kolon */
-        padding: 10px; /* Kartlar arası boşluk */
-        box-sizing: border-box;
-        float: none !important;
-    }
-
-    /* MOBILE */
     @@media (max-width: 768px) {
-        .single_Burger_President
-
-    {
-        width: 100% !important; /* Mobilde tek kolon */
+        .special-menu-wrapper {
+            grid-template-columns: 1fr;
+        }
     }
 
+    .special-card {
+        background: #fff;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        transition: .25s;
+        pointer-events: none;
     }
 
-    /* CARD İÇİ */
-    .room_thumb {
+    .special-card-body,
+    .special-card-body * {
+        pointer-events: auto;
+    }
+
+    .special-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .special-card-body {
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
         height: 100%;
     }
 
-        /* RESİM SABİT KALIR */
-        .room_thumb img {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-            display: block;
+    .special-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .special-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ff6b00;
+    }
+
+    .btn-add-cart {
+        background: #ff6b00;
+        color: #fff;
+        padding: 8px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        z-index: 10;
+    }
+
+        .btn-add-cart:hover {
+            background: #e65f00;
+            color: #fff;
         }
-
-    /* Gri arka planı kaldır */
-    .Burger_President_area {
-        background: transparent !important;
-        padding-bottom: 0 !important;
-    }
-
-    /* Tema row veya wrapper gri veriyorsa */
-    .Burger_President_here {
-        background: transparent !important;
-    }
-
-    /* Kartların altındaki boş gri alanı engeller */
-    .single_Burger_President {
-        margin-bottom: 20px;
-    }
 </style>
-<div class="Burger_President_area">
-    <div class="Burger_President_here">
+
+<div class="container mt-4">
+    <div class="special-menu-wrapper">
+
         @foreach (var item in Model)
         {
-            <div class="single_Burger_President">
-            <div class="room_thumb">
-                <img src="@item.ImageUrl" alt="SpecialMenuImage">
-                <div class="room_heading d-flex justify-content-between align-items-center">
-                    <div class="room_heading_inner">
-                            <span>₺@item.Price</span>
-                        <h3>@item.SpecialMenuName</h3>
-                        <p>@item.Description</p>
-                        <a href="#" class="boxed-btn3">Hemen Sipariş Ver</a>
-                    </div>
+            <div class="special-card">
+                <img src="@item.ImageUrl" />
 
+                <div class="special-card-body">
+                    <h4>@item.SpecialMenuName</h4>
+                    <p>@item.Description</p>
+
+                    <div class="special-footer">
+                        <span class="special-price">₺@item.Price</span>
+
+                        <!-- 🔥 KRİTİK KISIM -->
+                        <a asp-controller="Basket"
+                           asp-action="AddBasketItem"
+                           asp-route-id="@item.SpecialMenuId"
+                           asp-route-type="special"
+                           class="btn-add-cart">
+                            Sepete Ekle
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
         }
+
     </div>
 </div>
