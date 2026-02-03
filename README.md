@@ -1,84 +1,185 @@
-🍽️ Restaurant Microservices Architecture & Ecosystem
-Bu proje, bir backend geliştirici olarak mikroservis mimarileri, dağıtık sistemler ve modern yazılım tasarım desenleri üzerindeki yetkinliklerimi sergilemek amacıyla geliştirdiğim uçtan uca bir restoran yönetim ekosistemidir. Projenin ana hedefi, her servisin kendi sorumluluğunu taşıdığı, ölçeklenebilir ve yüksek performanslı bir dijital çözüm üretmektir. 
+🍽️ Restaurant Microservices Project
 
-🚀 Proje Vizyonu ve "Neden Mikroservis?"
-Monolitik yapıların aksine, bu projede mikroservis mimarisini tercih etme nedenim; her servisin kendi teknoloji yığınını seçebilmesi (Polyglot Persistence) ve bağımsız olarak ölçeklenebilmesidir. Bu çalışma, karmaşık iş süreçlerini (sipariş, sepet, indirim vb.) parçalayarak yönetilebilir ve sürdürülebilir bir sistem kurma yeteneğimi yansıtmaktadır.
+Backend-focused • Learning-oriented • Real-world inspired
 
-🏗️ Sistem Mimarisi ve Servis Detayları
-Proje, birbirleriyle asenkron ve senkron protokoller üzerinden haberleşen bağımsız servislerden oluşur:
+Bu proje, yeni mezun bir backend geliştirici olarak mikroservis mimarisi, dağıtık sistemler ve modern .NET backend geliştirme konularında kendimi geliştirmek ve öğrendiklerimi gerçekçi bir senaryo üzerinden göstermek amacıyla geliştirilmiştir.
 
-1. 🛡️ IdentityServer4 (Auth Service)
-Sistemin güvenlik merkezidir. OAuth2 ve OpenID Connect protokollerini kullanarak mikroservisler arası ve kullanıcı bazlı güvenliği yönetir. Tüm istekler buradan alınan JWT (JSON Web Token) ile doğrulanır.
+Amacım; yalnızca çalışan bir uygulama yapmak değil,
+neden böyle tasarladım, nerede neyi kullandım sorularına mantıklı cevaplar verebilen bir yapı kurmaktır.
 
-2. 📡 Ocelot API Gateway
-İstemciden (WebUI) gelen tüm taleplerin ilk durağıdır. İçerideki servisleri dış dünyadan gizleyerek; yönlendirme (routing), kimlik doğrulama kontrolü ve yük dengeleme gibi kritik görevleri üstlenir.
+🎯 Proje Amacı
 
-3. 🍱 Catalog Microservice (MongoDB)
-Restoran menüsünü, kategorileri ve ürünleri yönetir. Verilerin esnekliği ve okuma hızının kritik olması nedeniyle NoSQL (MongoDB) ile optimize edilmiştir.
+Bu projede özellikle şunları öğrenmeye ve uygulamaya odaklandım:
 
-4. 🛒 Basket Microservice (Redis)
-Kullanıcı sepetlerini Redis In-Memory Data Store üzerinde tutar. Bu sayede sepet işlemleri milisaniyeler bazında gerçekleşir ve sistemin stateless (durumsuz) kalması sağlanarak yatayda ölçeklenme kabiliyeti artırılmıştır.
+Mikroservis mimarisinin temel prensipleri
 
-5. 🏷️ Discount Microservice (Dapper)
-İndirim kuponlarını yönetir. Performansın en üst düzeyde olması amacıyla Dapper (Micro-ORM) kullanılarak MSSQL üzerinde optimize edilmiş SQL sorguları çalıştırır.
+Servislerin sorumluluklarına göre ayrılması
 
-6. 📦 Order Microservice (EF Core)
-Sipariş kayıtlarını, detaylarını ve adres bilgilerini yönetir. İlişkisel veri bütünlüğü ve karmaşık sorgu süreçleri için Entity Framework Core ile MSSQL üzerinde çalışır.
+Farklı veri saklama çözümlerinin doğru yerde kullanılması
 
-7. 💻 WebUI (Frontend)
-Kullanıcıların sipariş verdiği arayüzdür. ASP.NET Core MVC ile geliştirilmiş olup, tüm mikroservisleri API Gateway üzerinden asenkron olarak tüketir.
+Token tabanlı kimlik doğrulama (JWT)
 
-🛠️ Teknik Yetkinlikler & Kütüphaneler
-Mimari Desenler: Repository Pattern, DTO (Data Transfer Object) Pattern, Singleton, Dependency Injection.
+API Gateway kullanımı
 
-Veri Yönetimi: AutoMapper (Nesne Eşleme), FluentValidation (Merkezi Doğrulama).
+Docker ile çok servisli uygulama çalıştırma
 
-Güvenlik: JWT Bearer Token, Policy-Based Authorization.
+Bu proje benim için bir öğrenme + uygulama sürecinin çıktısıdır.
 
-DevOps & Deployment:
+🧠 Neden Mikroservis?
 
-Docker: Tüm servisler ve veritabanları Dockerize edilmiştir.
+Monolit bir yapı yerine mikroservis tercih etmemin nedeni:
 
-Docker-Compose: Ekosistemin tek komutla ayağa kaldırılmasını sağlar.
+Her servisin tek bir işi yapmasını sağlamak
 
-Postman: Tüm API uç noktaları için detaylı test koleksiyonları mevcuttur.
+Gerçek hayatta sık kullanılan mimarileri öğrenmek
 
-🌟 Öne Çıkan Mühendislik Çözümleri
-Right Tool for the Right Job: Ürünler için NoSQL, sepet için In-Memory, sipariş için RDBMS kullanarak veri depolama stratejilerini optimize ettim.
+Servislerin birbirinden bağımsız çalışabilmesini görmek
 
-Gateway Authentication: Güvenliği her serviste ayrı ayrı yazmak yerine Ocelot üzerinden merkezileştirdim.
+İleride yeni servisler eklenebilecek bir yapı kurmak
 
-Clean Code: Kod tekrarını önlemek için merkezi kütüphaneler ve genişletilebilir yapılar kurdum.
+Bu proje, mikroservis mimarisini temel seviyeden ileri seviyeye doğru öğrenme amacıyla tasarlanmıştır.
 
-🛤️ Gelişim Yol Haritası (Future Roadmap)
-Kendimi geliştirmeye devam ettiğim bu projede, yakın gelecekte şu modülleri eklemeyi planlıyorum:
+🏗️ Genel Mimari
 
-Payment Service: Ödeme süreçlerini yöneten izole bir mikroservis.
+Sistem; bir API Gateway, bir Authentication servisi ve farklı iş alanlarına ayrılmış mikroservislerden oluşur.
 
-RabbitMQ Entegrasyonu: Sipariş verildiğinde ödeme ve bildirim servislerini asenkron olarak tetiklemek için Event-Driven mimari.
+İstemci (WebUI), tüm istekleri Ocelot API Gateway üzerinden yapar.
+Servisler doğrudan dış dünyaya açık değildir.
 
-ELK Stack (Elasticsearch, Logstash, Kibana): Tüm servislerin loglarını merkezi bir noktada toplamak ve izlemek.
+🔐 IdentityServer4 – Authentication Service
 
-Unit & Integration Tests: xUnit ve Moq kullanarak %100'e yakın kod kapsamı (Code Coverage).
+Kullanıcı kimlik doğrulama
 
-🏁 Kurulum ve Çalıştırma
-Repoyu bilgisayarınıza klonlayın.
+JWT token üretimi
 
-Ana dizinde bir terminal açın.
+OAuth2 / OpenID Connect temelleri
 
-docker-compose up -d komutunu çalıştırın.
+Servislerin güvenli şekilde haberleşmesi
 
-Tüm servisler ayağa kalktıktan sonra tarayıcınızdan https://localhost:7500 adresine gidin.
+Bu servis sayesinde güvenlik her serviste ayrı ayrı yazılmamıştır.
+
+🚪 Ocelot API Gateway
+
+Tek giriş noktası
+
+İstek yönlendirme (routing)
+
+Token kontrolü
+
+Servislerin dışarıdan gizlenmesi
+
+API Gateway kullanarak merkezi bir kontrol noktası oluşturmayı hedefledim.
+
+🍱 Catalog Microservice (MongoDB)
+
+Ürünler
+
+Kategoriler
+
+Menü bilgileri
+
+Esnek veri yapısı ve okuma performansı nedeniyle MongoDB kullanılmıştır.
+
+🛒 Basket Microservice (Redis)
+
+Kullanıcı sepet bilgileri
+
+Hızlı okuma / yazma
+
+Geçici veri yönetimi
+
+Sepet verileri için Redis (In-Memory) kullanılarak performans kazanımı hedeflenmiştir.
+
+🏷️ Discount Microservice (Dapper)
+
+İndirim kuponları
+
+Kampanyalar
+
+Bu serviste performansı daha yakından gözlemlemek için Dapper kullanılmıştır.
+
+📦 Order Microservice (EF Core)
+
+Siparişler
+
+Sipariş detayları
+
+Adres bilgileri
+
+İlişkisel veri yapısı nedeniyle EF Core + MSSQL tercih edilmiştir.
+
+💻 WebUI (ASP.NET Core MVC)
+
+Kullanıcı arayüzü
+
+API Gateway üzerinden servis tüketimi
+
+Token bazlı istekler
+
+Frontend, backend servisleri test edebilmek için sade tutulmuştur.
+
+🧩 Kullanılan Teknolojiler & Araçlar
+
+ASP.NET Core
+
+Entity Framework Core
+
+Dapper
+
+MongoDB
+
+Redis
+
+IdentityServer4
+
+Ocelot
+
+AutoMapper
+
+FluentValidation
+
+Docker & Docker Compose
+
+Postman
+
+🐳 Kurulum
+docker-compose up -d
 
 
---Proje Resimlerim --
+Tüm servisler ayağa kalktıktan sonra WebUI üzerinden uygulama kullanılabilir.
 
-<img width="1919" height="1600" alt="8" src="https://github.com/user-attachments/assets/3afd7280-a6c4-425a-9fe9-a51a4bd067fc" />
-<img width="1918" height="1600" alt="7" src="https://github.com/user-attachments/assets/f77f5605-49f9-4a46-b19b-b65524854493" />
-<img width="1916" height="1600" alt="5" src="https://github.com/user-attachments/assets/76deba06-02e9-44b6-bc19-021d53233604" />
-<img width="1912" height="1600" alt="4" src="https://github.com/user-attachments/assets/9963b6e3-f4c6-4df8-b8ce-ab866b751413" />
-<img width="1914" height="1600" alt="3" src="https://github.com/user-attachments/assets/45e1ca15-77ec-4d62-bf23-01ee1d9b6b1c" />
-<img width="1907" height="1600" alt="2" src="https://github.com/user-attachments/assets/f13f6a03-9ecb-4d1b-96af-c3e233139d2e" />
-<img width="1917" height="1600" alt="1" src="https://github.com/user-attachments/assets/cf00b99b-5510-40a9-a097-b680062c75e5" />
-<img width="1202" height="1600" alt="folder" src="https://github.com/user-attachments/assets/7380ac36-4e8e-453a-bef8-568e3b4afa36" />
+🚀 Öğrenme & Geliştirme Planı
+
+Bu projeyi geliştirmeye devam ediyorum. Planladığım eklemeler:
+
+Payment Microservice
+
+RabbitMQ ile asenkron iletişim
+
+Notification Service
+
+Unit & Integration Tests
+
+Merkezi loglama (ELK)
+
+✨ Son Söz
+
+Bu proje;
+
+Mikroservis mimarisini öğrenme sürecimi
+
+Backend geliştirme yaklaşımımı
+
+Gerçek hayata yakın bir sistem kurma isteğimi
+
+yansıtan bir çalışmadır.
+
+<img width="1202" height="1600" alt="folder" src="https://github.com/user-attachments/assets/149e4e0e-6c99-44e9-be75-b3273f0e7e7b" />
+<img width="1919" height="1600" alt="8" src="https://github.com/user-attachments/assets/d784bea8-c4cf-403a-8217-5063d6fe9d5a" />
+<img width="1918" height="1600" alt="7" src="https://github.com/user-attachments/assets/3de97721-31fa-485e-8b07-10a5d2cdebd1" />
+<img width="1916" height="1600" alt="5" src="https://github.com/user-attachments/assets/6fedcb65-993c-4ecf-843d-9548a954dd3c" />
+<img width="1912" height="1600" alt="4" src="https://github.com/user-attachments/assets/958f5716-1ea7-4a09-9ee2-1d1be403973f" />
+<img width="1914" height="1600" alt="3" src="https://github.com/user-attachments/assets/1492bbb3-c9bf-4ad3-a8c5-4f217b301eaa" />
+<img width="1907" height="1600" alt="2" src="https://github.com/user-attachments/assets/86e855fe-807e-462b-86fc-f3452dc0b1c8" />
+<img width="1917" height="1600" alt="1" src="https://github.com/user-attachments/assets/a61c80f1-84b1-4bff-b0bc-c8762cfb408d" />
 
