@@ -72,22 +72,13 @@ Tüm servisler ayağa kalktıktan sonra tarayıcınızdan https://localhost:7500
 
 
 --Proje Resimlerim --
-<img width="1202" height="1600" alt="folder" src="https://github.com/user-attachments/assets/97a8ab25-8371-4d06-a952-5ebb647ae5e5" />
-<img width="1202" height="1600" alt="folder" src="https://github.com/user-attachments/assets/97a8ab25-8371-4d06-a952-5ebb647ae5e5" />
-<img width="1919" height="1600" alt="8" src="https://github.com/user-attachments/assets/3afd7280-a6c4-425a-9fe9-a51a4bd067fc" />
+
 <img width="1919" height="1600" alt="8" src="https://github.com/user-attachments/assets/3afd7280-a6c4-425a-9fe9-a51a4bd067fc" />
 <img width="1918" height="1600" alt="7" src="https://github.com/user-attachments/assets/f77f5605-49f9-4a46-b19b-b65524854493" />
-<img width="1918" height="1600" alt="7" src="https://github.com/user-attachments/assets/f77f5605-49f9-4a46-b19b-b65524854493" />
-<img width="1916" height="1600" alt="6" src="https://github.com/user-attachments/assets/db33bd13-5011-4f4c-9fee-556962e6f53b" />
-<img width="1916" height="1600" alt="6" src="https://github.com/user-attachments/assets/db33bd13-5011-4f4c-9fee-556962e6f53b" />
-<img width="1916" height="1600" alt="5" src="https://github.com/user-attachments/assets/76deba06-02e9-44b6-bc19-021d53233604" />
 <img width="1916" height="1600" alt="5" src="https://github.com/user-attachments/assets/76deba06-02e9-44b6-bc19-021d53233604" />
 <img width="1912" height="1600" alt="4" src="https://github.com/user-attachments/assets/9963b6e3-f4c6-4df8-b8ce-ab866b751413" />
-<img width="1912" height="1600" alt="4" src="https://github.com/user-attachments/assets/9963b6e3-f4c6-4df8-b8ce-ab866b751413" />
-<img width="1914" height="1600" alt="3" src="https://github.com/user-attachments/assets/45e1ca15-77ec-4d62-bf23-01ee1d9b6b1c" />
 <img width="1914" height="1600" alt="3" src="https://github.com/user-attachments/assets/45e1ca15-77ec-4d62-bf23-01ee1d9b6b1c" />
 <img width="1907" height="1600" alt="2" src="https://github.com/user-attachments/assets/f13f6a03-9ecb-4d1b-96af-c3e233139d2e" />
-<img width="1907" height="1600" alt="2" src="https://github.com/user-attachments/assets/f13f6a03-9ecb-4d1b-96af-c3e233139d2e" />
 <img width="1917" height="1600" alt="1" src="https://github.com/user-attachments/assets/cf00b99b-5510-40a9-a097-b680062c75e5" />
-<img width="1917" height="1600" alt="1" src="https://github.com/user-attachments/assets/cf00b99b-5510-40a9-a097-b680062c75e5" />
+<img width="1202" height="1600" alt="folder" src="https://github.com/user-attachments/assets/7380ac36-4e8e-453a-bef8-568e3b4afa36" />
 
