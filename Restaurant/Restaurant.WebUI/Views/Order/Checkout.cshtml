@@ -1,0 +1,95 @@
+﻿@using Restaurant.DtoLayer.OrderDtos.Create
+@model CreateOrderDto
+
+@{
+    ViewData["Title"] = "Ödeme ve Adres Bilgileri";
+    Layout = "~/Views/UI/Index.cshtml";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card border-1 shadow-sm p-4">
+                <h4 class="mb-4"><i class="fas fa-map-marker-alt text-primary"></i> Teslimat Bilgileri</h4>
+                <form asp-action="Checkout" method="post">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label class="form-label">Ad Soyad</label>
+                            <input type="text" asp-for="FullName" class="form-control" placeholder="Ahmet Yılmaz" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">E-Posta</label>
+                            <input type="email" asp-for="Email" class="form-control" placeholder="ahmet@mail.com" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Telefon</label>
+                            <input type="tel" asp-for="PhoneNumber" class="form-control" placeholder="0555..." required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Adres</label>
+                            <textarea asp-for="Address" class="form-control" rows="3" placeholder="Açık adresinizi yazınız..." required></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Şehir</label>
+                            <input type="text" asp-for="City" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">İlçe</label>
+                            <input type="text" asp-for="District" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 d-grid d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success btn-lg">Siparişi Onayla (@ViewBag.FinalTotal ₺)</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-1 shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0">Sipariş Özeti</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Ürünler Toplamı</span>
+                        <span>@(((decimal)ViewBag.TotalPrice).ToString("N2")) ₺</span>
+                    </div>
+
+                    @if (ViewBag.Discount > 0)
+                    {
+                        <div class="d-flex justify-content-between mb-2 text-success">
+                            <span>İndirim</span>
+                            <span>-@(((decimal)ViewBag.Discount).ToString("N2")) ₺</span>
+                        </div>
+                    }
+
+                    <hr class="my-2">
+
+                    <div class="d-flex justify-content-between mb-2 text-secondary">
+                        <span>Ara Toplam (KDV Hariç)</span>
+                        <span>@(((decimal)ViewBag.SubTotal).ToString("N2")) ₺</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2 text-muted">
+                        <span>KDV (%10)</span>
+                        <span>@(((decimal)ViewBag.Tax).ToString("N2")) ₺</span>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between mb-0 align-items-center">
+                        <strong>Toplam</strong>
+                        <strong class="text-primary fs-4">@(((decimal)ViewBag.FinalTotal).ToString("N2")) ₺</strong>
+                    </div>
+                </div>
+
+            </div>
+            <div class="alert alert-light border mt-3 small">
+                <i class="fas fa-info-circle me-1"></i> Ödemeniz kapıda gerçekleştirilecektir.
+            </div>
+        </div>
+        
+    </div>
+</div>

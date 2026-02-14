@@ -20,32 +20,28 @@ namespace Restaurant.Order.Services
             _mapper = mapper;
         }
 
-        // POST /orders
+       
         public async Task<int> CreateAsync(CreateOrderDto dto)
         {
             var order = _mapper.Map<OrderEntity>(dto);
-
             order.Status = OrderStatus.Pending;
             order.CreatedDate = DateTime.UtcNow;
-
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
-
             return order.Id;
         }
 
-        // GET /orders/user/{userId}
+       
         public async Task<List<ResultOrderDto>> GetByUserIdAsync(string userId)
         {
             var orders = await _context.Orders
                 .Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.CreatedDate)
                 .ToListAsync();
-
             return _mapper.Map<List<ResultOrderDto>>(orders);
         }
 
-        // GET /orders/{id}
+      
         public async Task<OrderDetailDto?> GetByIdAsync(int orderId)
         {
             var order = await _context.Orders
@@ -58,7 +54,7 @@ namespace Restaurant.Order.Services
             return _mapper.Map<OrderDetailDto>(order);
         }
 
-        // PUT /orders/{id}/status
+       
         public async Task UpdateStatusAsync(UpdateOrderStatusDto dto)
         {
             var order = await _context.Orders
@@ -67,7 +63,7 @@ namespace Restaurant.Order.Services
             if (order is null)
                 throw new Exception("Order not found");
 
-            // 🔒 State rules
+            
             if (order.Status == OrderStatus.Cancelled ||
                 order.Status == OrderStatus.Completed)
                 throw new Exception("Order status cannot be changed");
@@ -77,7 +73,7 @@ namespace Restaurant.Order.Services
             await _context.SaveChangesAsync();
         }
 
-        // PUT /orders/{id}/cancel
+
         public async Task CancelAsync(int orderId, string? reason)
         {
             var order = await _context.Orders

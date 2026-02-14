@@ -10,5 +10,11 @@
         public string CategoryCollectionName { get; set; }
         public string ProductCollectionName { get; set; }
         public string SpecialMenuCollectionName { get; set; }
+
+        public string InComeCollectionName { get; set; }
+        public string OutcomeCollectionName { get; set; }
+        public string FixedExpenseCollectionName { get; set; }
+        public string DailyReportCollectionName { get; set; }
+        public string FinalReportCollectionName { get; set; }
     }
 }

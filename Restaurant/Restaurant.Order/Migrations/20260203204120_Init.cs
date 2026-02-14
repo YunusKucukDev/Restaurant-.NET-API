@@ -18,7 +18,7 @@ namespace Restaurant.Order.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalPrice = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CancelReason = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -34,9 +34,9 @@ namespace Restaurant.Order.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     OrderEntityId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -49,6 +49,7 @@ namespace Restaurant.Order.Migrations
                         principalTable: "Orders",
                         principalColumn: "Id");
                 });
+
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItemEntity_OrderEntityId",

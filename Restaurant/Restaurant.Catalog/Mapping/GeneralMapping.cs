@@ -3,6 +3,12 @@ using Restaurant.Catalog.Dtos.About;
 using Restaurant.Catalog.Dtos.Branch1_Dtos;
 using Restaurant.Catalog.Dtos.Branch2_Dtos;
 using Restaurant.Catalog.Dtos.CategoryDtos;
+using Restaurant.Catalog.Dtos.DailyReport;
+using Restaurant.Catalog.Dtos.Dtos.IncomeDtos;
+using Restaurant.Catalog.Dtos.FinalReportDtos;
+using Restaurant.Catalog.Dtos.FixedExpenseDto;
+using Restaurant.Catalog.Dtos.IncomeDtos;
+using Restaurant.Catalog.Dtos.OutcomeDtos;
 using Restaurant.Catalog.Dtos.ProductDtos;
 using Restaurant.Catalog.Dtos.SpecialMenuDtos;
 using Restaurant.Catalog.Entities;
@@ -58,7 +64,28 @@ namespace Restaurant.Catalog.Mapping
             CreateMap<SpecialMenu, GetByIdSpecialMenuDto>().ReverseMap();
             CreateMap<SpecialMenu, CreateSpecialMenuDto>().ReverseMap();
             CreateMap<SpecialMenu, UpdateSpecialMenuDto>().ReverseMap();
-           
+
+            CreateMap<Income, ResultIncomeDto>().ReverseMap();
+            CreateMap<Income, CreateInComeDto>().ReverseMap();
+            CreateMap<Income, UpdateInComeDtos>().ReverseMap();
+            CreateMap<Income, GetByIdIncomeDto>().ReverseMap();
+
+            CreateMap<Outcome, UpdateOutComeDto>().ReverseMap();
+            CreateMap<Outcome, CreateOutcomeDto>().ReverseMap();
+            CreateMap<Outcome, GetByIdOutcomeDto>().ReverseMap();
+            CreateMap<Outcome, ResultOutcomeDto>().ReverseMap();
+
+            CreateMap<FixedExpense, ResultFixedExpenseDto>().ReverseMap();
+            CreateMap<FixedExpense, CreateFixedExpenseDto>().ReverseMap();
+            CreateMap<FixedExpense, UpdateFixedExpensedto>().ReverseMap();
+
+            CreateMap<DailyReport, ResultDailyReportDto>().ReverseMap();
+            CreateMap<DailyReport, CreateDailyReportDto>().ReverseMap();
+
+            CreateMap<FinalReport, ResultFinalReportDto>().ReverseMap();
+            CreateMap<FinalReport, CreateFinalReportDto>().ReverseMap();
+            CreateMap<FinalReport, GetByIdFinalReportDto>().ReverseMap();
+
         }
         
     }

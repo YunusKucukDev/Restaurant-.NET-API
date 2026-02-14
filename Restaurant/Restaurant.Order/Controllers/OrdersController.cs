@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Restaurant.Order.Dtos.Create;
 using Restaurant.Order.Dtos.Update;
 using Restaurant.Order.Services;
 
 namespace Restaurant.Order.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/orders")]
     public class OrdersController : ControllerBase
@@ -16,7 +18,6 @@ namespace Restaurant.Order.Controllers
             _orderService = orderService;
         }
 
-        // POST /api/orders
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateOrderDto dto)
         {
@@ -33,7 +34,7 @@ namespace Restaurant.Order.Controllers
         }
 
         // GET /api/orders/{id}
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var order = await _orderService.GetByIdAsync(id);

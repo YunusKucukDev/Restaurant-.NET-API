@@ -6,11 +6,17 @@ using Restaurant.WebUI.Services.Catalog.AboutService;
 using Restaurant.WebUI.Services.Catalog.Branch1_InformationServices;
 using Restaurant.WebUI.Services.Catalog.Branch2_InformationServices;
 using Restaurant.WebUI.Services.Catalog.CategoryService;
+using Restaurant.WebUI.Services.Catalog.DailyReportService;
+using Restaurant.WebUI.Services.Catalog.FinalReportService;
+using Restaurant.WebUI.Services.Catalog.FixedExpense;
+using Restaurant.WebUI.Services.Catalog.IncomeService;
+using Restaurant.WebUI.Services.Catalog.OutcomeService;
 using Restaurant.WebUI.Services.Catalog.ProductService;
 using Restaurant.WebUI.Services.Catalog.SpecialMenuService;
 using Restaurant.WebUI.Services.Concrete;
 using Restaurant.WebUI.Services.DiscountCoupon;
 using Restaurant.WebUI.Services.Interfaces;
+using Restaurant.WebUI.Services.Order;
 using Restaurant.WebUI.settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -69,7 +75,13 @@ builder.Services.AddHttpClient<IProductService, ProductService>().AddHttpMessage
 builder.Services.AddHttpClient<ISpecialMenuService, SpecialMenuService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 builder.Services.AddHttpClient<IBasketService, BasketService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 builder.Services.AddHttpClient<IDiscountcouponService, DiscountcouponService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
-
+builder.Services.AddHttpClient<IOrderService, OrderService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddHttpClient<IDailyReportService, DailyReportService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddHttpClient<IFinalReportService, FinalReportService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddHttpClient<IFixedExpenseService, FixedExpenseService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddHttpClient<IIncomeService, IncomeService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddHttpClient<IOutcomeService, OutcomeService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddSession(); // Builder tarafına
 
 
 var app = builder.Build();
@@ -87,6 +99,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 

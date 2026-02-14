@@ -32,28 +32,36 @@ public class BasketController : Controller
     {
         var values = await _basketService.GetBasket();
 
-        // Ürünler toplamı
-        var total = values.TotalPrice;
+        // 1. Menü Fiyatı (KDV Dahil Ham Fiyat)
+        decimal menuTotal = values.TotalPrice;
 
-        // İndirim
+        // 2. İndirim Hesaplama (Menü fiyatı üzerinden)
         decimal discountAmount = 0;
         if (values.DiscountRate.HasValue)
         {
-            discountAmount = total * values.DiscountRate.Value / 100;
+            discountAmount = menuTotal * values.DiscountRate.Value / 100;
         }
 
-        var discountedTotal = total - discountAmount;
+        // 3. İndirimli Fiyat (KDV Dahil)
+        decimal discountedMenuPrice = menuTotal - discountAmount;
 
-        // KDV (%10) → indirimden sonra
-        var tax = discountedTotal * 10 / 100;
+        // 4. KDV'siz Tutar (Ara Toplam) 
+        // Formül: KDVli Fiyat / 1.10 (KDV %10 ise)
+        decimal subTotalExcludingTax = discountedMenuPrice / 1.1m;
 
-        var finalTotal = discountedTotal + tax;
+        // 5. KDV Tutarı
+        // Formül: KDVli Fiyat - KDV'siz Fiyat
+        decimal taxAmount = discountedMenuPrice - subTotalExcludingTax;
 
-        // ViewBag
-        ViewBag.total = total;
-        ViewBag.discount = discountAmount;
-        ViewBag.tax = tax;
-        ViewBag.totalPriceWithTax = finalTotal;
+        // 6. Genel Toplam (KDV Dahil Ödenecek Tutar)
+        decimal finalTotal = subTotalExcludingTax + taxAmount;
+
+        // ViewBag'e gönderiyoruz
+        ViewBag.MenuTotal = menuTotal;
+        ViewBag.Discount = discountAmount;
+        ViewBag.SubTotal = subTotalExcludingTax; // KDV'siz Ara Toplam
+        ViewBag.Tax = taxAmount;               // Sadece KDV
+        ViewBag.FinalTotal = finalTotal;        // KDV'li Genel Toplam
 
         return View(values);
     }

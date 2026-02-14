@@ -3,11 +3,12 @@
     public class OrderDetailDto
     {
         public int Id { get; set; }
-        public string UserId { get; set; } = null!;
-        public decimal TotalPrice { get; set; }
-        public string Status { get; set; } = null!;
+        public string FullName { get; set; }
+        public double TotalPrice { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string Address { get; set; }
 
-        public List<OrderItemDto> Items { get; set; } = new();
+        
+        public List<OrderDetailDto> OrderItems { get; set; }
     }
 }

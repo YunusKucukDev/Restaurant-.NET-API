@@ -1,0 +1,62 @@
+﻿@using Restaurant.DtoLayer.CatalogDtos.OutcomeDto
+@model CreateOutcomeDto
+
+
+    <div class="card shadow-lg border-0 rounded-4">
+
+        <!-- HEADER -->
+        <div class="card-header bg-danger text-white rounded-top-4">
+            <h5 class="mb-0 fw-semibold">
+                💸 Yeni Gider Ekle
+            </h5>
+        </div>
+
+        <!-- BODY -->
+        <div class="card-body p-4">
+            <form asp-area="Admin"  asp-controller="Computation"
+                  asp-action="CreateOutcome"
+                  method="post">
+                <input type="hidden" asp-for="Date" value="@ViewBag.SelectedDate" />
+
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Gider Adı
+                    </label>
+                    <input asp-for="OutcomeName"
+                           class="form-control form-control-lg"
+                           placeholder="Örn: Elektrik Faturası" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Açıklama
+                    </label>
+                    <textarea asp-for="OutcomeDescription"
+                              class="form-control"
+                              rows="3"
+                              placeholder="Gider hakkında kısa açıklama"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">
+                        Tutar (₺)
+                    </label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text">₺</span>
+                        <input asp-for="OutcomeAmount"
+                               type="number"
+                               step="0.01"
+                               class="form-control"
+                               placeholder="0.00" />
+                    </div>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-danger w-100 py-2 fw-semibold shadow-sm">
+                    Kaydet
+                </button>
+            </form>
+        </div>
+    </div>

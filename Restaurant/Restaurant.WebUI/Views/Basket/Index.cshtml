@@ -67,6 +67,49 @@ else
     </table>
 
     <!-- 🎟️ İNDİRİM KODU -->
+   
+
+    <!-- 💰 TOPLAM -->
+    <div class="card shadow-sm border-4 mt-4">
+        <div class="card-body">
+            <h5 class="card-title mb-4">Ödeme Özeti</h5>
+
+            <div class="d-flex justify-content-between mb-2">
+                <span>Menü Toplam Tutarı:</span>
+                <span>@ViewBag.MenuTotal.ToString("N2") ₺</span>
+            </div>
+
+            @if (Model.DiscountRate.HasValue)
+            {
+                <div class="d-flex justify-content-between mb-2 text-success">
+                    <span>İndirim (@Model.DiscountRate%):</span>
+                    <span>-@ViewBag.Discount.ToString("N2") ₺</span>
+                </div>
+            }
+
+            <hr />
+
+            <div class="d-flex justify-content-between mb-2 fw-bold text-secondary">
+                <span>Ara Toplam (KDV Hariç):</span>
+                <span>@ViewBag.SubTotal.ToString("N2") ₺</span>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2 text-muted">
+                <span>KDV (%10):</span>
+                <span>@ViewBag.Tax.ToString("N2") ₺</span>
+            </div>
+
+            <hr class="my-3" />
+
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="h5 mb-0">Genel Toplam:</span>
+                <span class="h4 mb-0 text-primary fw-bold">
+                    @ViewBag.FinalTotal.ToString("N2") ₺
+                </span>
+            </div>
+        </div>
+    </div>
+
     <div class="card mt-3">
         <div class="card-body">
             <form asp-controller="Basket"
@@ -84,29 +127,6 @@ else
                     Uygula
                 </button>
             </form>
-        </div>
-    </div>
-
-    <!-- 💰 TOPLAM -->
-    <div class="card mt-4">
-        <div class="card-body">
-            <p><strong>Ara Toplam:</strong> @total ₺</p>
-
-            @if (Model.DiscountRate.HasValue)
-            {
-                <p class="text-success">
-                    <strong>İndirim:</strong>
-                    -@discountAmount ₺ (@Model.DiscountRate%)
-                </p>
-            }
-
-            <p><strong>KDV (%10):</strong> @tax ₺</p>
-
-            <hr />
-
-            <h4 class="text-success">
-                Ödenecek Tutar: @finalTotal ₺
-            </h4>
         </div>
     </div>
 }
