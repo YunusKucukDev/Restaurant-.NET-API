@@ -37,31 +37,30 @@ namespace Restaurant.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index(DateTime? selectedDate)
         {
             PopulateCompanies();
-            // 1. Tarihi belirle
+            
             DateTime filterDate = selectedDate?.Date ?? DateTime.Today.Date;
             var activeShift = HttpContext.Session.GetString("ActiveShift") ?? "Gunduz";
 
-            // 2. Tüm verileri çek
+          
             var incomesByShift = await _incomeService.GetIncomesByShiftAsync(activeShift);
             var outcomesByShift = await _outcomeService.GetOutcomesByShiftAsync(activeShift);
             var allDailyReports = await _dailyReportService.GetDailyReportsByShiftAsync(activeShift);
 
-            // 3. FİLTRELEME (Burayı dikkatli güncelleyin)
-            // ToLocalTime() ekleyerek MongoDB'den gelen UTC saatini yerel saate çeviriyoruz
+           
             var incomes = incomesByShift
                 .Where(x => x.Date.ToLocalTime().Date == filterDate.Date)
                 .ToList();
 
             var outcomes = outcomesByShift
-         .Where(x => x.Date.Date == filterDate.Date) // filterDate.Date ile x.Date.Date karşılaştırılıyor
+         .Where(x => x.Date.Date == filterDate.Date) 
          .ToList();
 
-            // 4. HESAPLAMA
+            
             ViewBag.TotalIncome = incomes.Sum(x => x.IncomeAmount);
             ViewBag.TotalOutcome = outcomes.Sum(x => x.OutcomeAmount);
             ViewBag.FinalIncome = (decimal)ViewBag.TotalIncome - (decimal)ViewBag.TotalOutcome;
 
-            // Diğer ViewBag atamaları
+           
             ViewBag.ActiveShift = activeShift;
             ViewBag.SelectedDate = filterDate.ToString("yyyy-MM-dd");
             ViewBag.RawDate = filterDate;
@@ -116,12 +115,14 @@ namespace Restaurant.WebUI.Areas.Admin.Controllers
 
 
         [Route("DeleteIncome")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteIncome(string id, DateTime selectedDate)
         {
             await _incomeService.DeleteIncomeDto(id);
             return RedirectToAction("Index", new { selectedDate = selectedDate.ToString("yyyy-MM-dd") });
         }
 
+        [HttpDelete]
         [Route("DeleteOutcome")]
         public async Task<IActionResult> DeleteOutcome(string id, DateTime selectedDate)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Restaurant.DtoLayer.CatalogDtos.MenuDtos.ProductDtos
@@ -21,6 +22,8 @@ namespace Restaurant.DtoLayer.CatalogDtos.MenuDtos.ProductDtos
         public int DisplayOrder { get; set; }        // Kategori içi sıralama
 
         public string ImageUrl { get; set; }
+        [JsonPropertyName("isFavorite")] // API'den gelen küçük 'i' harfli veriyi buna zorla
+        public bool IsFavorite { get; set; } = false;
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 

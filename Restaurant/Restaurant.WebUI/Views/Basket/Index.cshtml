@@ -4,19 +4,6 @@
 @{
     ViewData["Title"] = "Sepetim";
     Layout = "~/Views/UI/Index.cshtml";
-
-    var total = Model.TotalPrice;
-
-    decimal discountAmount = 0;
-    if (Model.DiscountRate.HasValue)
-    {
-        discountAmount = total * Model.DiscountRate.Value / 100;
-    }
-
-    var discountedTotal = total - discountAmount;
-
-    var tax = discountedTotal * 0.10m;
-    var finalTotal = discountedTotal + tax;
 }
 
 <h2 class="mb-4">🛒 Sepetim</h2>
@@ -29,7 +16,6 @@
 }
 else
 {
-    <!-- 🧾 SEPET TABLOSU -->
     <table class="table table-bordered align-middle">
         <thead class="table-dark">
             <tr>
@@ -47,29 +33,41 @@ else
                 <tr>
                     <td>@item.ProductName</td>
                     <td>
-                        <img src="@item.ProductImageUrl"
-                             style="width:60px;height:60px;object-fit:cover;" />
+                        <img src="@item.ProductImageUrl" style="width:60px;height:60px;object-fit:cover;" />
                     </td>
                     <td>@item.Quantity</td>
                     <td>@item.Price ₺</td>
                     <td>@(item.Price* item.Quantity) ₺</td>
                     <td>
-                        <a asp-controller="Basket"
-                           asp-action="RemoveBasketItem"
-                           asp-route-id="@item.ProductId"
-                           class="btn btn-sm btn-danger">
-                            Sil
-                        </a>
+                        <a asp-controller="Basket" asp-action="RemoveBasketItem" asp-route-id="@item.ProductId" class="btn btn-sm btn-danger">Sil</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 
-    <!-- 🎟️ İNDİRİM KODU -->
-   
+    @if (ViewBag.ExpireTimestamp != null)
+    {
+        <div class="alert alert-info">
+            Kalan Süre: <strong id="timer">--:--</strong>
+        </div>
 
-    <!-- 💰 TOPLAM -->
+        <script>
+            var target = @ViewBag.ExpireTimestamp;
+            var interval = setInterval(function() {
+                var diff = target - new Date().getTime();
+                if (diff <= 0) {
+                    clearInterval(interval);
+                    location.reload(); // Süre bitince sayfayı yenile, Controller indirimi silsin
+                } else {
+                    var m = Math.floor(diff / 60000);
+                    var s = Math.floor((diff % 60000) / 1000);
+                    document.getElementById("timer").innerHTML = m + ":" + (s < 10 ? "0" : "") + s;
+                }
+            }, 1000);
+        </script>
+    }
+
     <div class="card shadow-sm border-4 mt-4">
         <div class="card-body">
             <h5 class="card-title mb-4">Ödeme Özeti</h5>
@@ -79,9 +77,9 @@ else
                 <span>@ViewBag.MenuTotal.ToString("N2") ₺</span>
             </div>
 
-            @if (Model.DiscountRate.HasValue)
+            @if (Model.DiscountRate.HasValue && Model.DiscountRate > 0)
             {
-                <div class="d-flex justify-content-between mb-2 text-success">
+                <div class="d-flex justify-content-between mb-2 text-success fw-bold">
                     <span>İndirim (@Model.DiscountRate%):</span>
                     <span>-@ViewBag.Discount.ToString("N2") ₺</span>
                 </div>
@@ -112,36 +110,16 @@ else
 
     <div class="card mt-3">
         <div class="card-body">
-            <form asp-controller="Basket"
-                  asp-action="ApplyDiscount"
-                  method="post"
-                  class="d-flex gap-2">
-
-                <input type="text"
-                       name="code"
-                       class="form-control"
-                       placeholder="İndirim kodu giriniz"
-                       required />
-
-                <button class="btn btn-success">
-                    Uygula
-                </button>
+            <form asp-controller="Basket" asp-action="ApplyDiscount" method="post" class="d-flex gap-2">
+                <input type="text" name="code" class="form-control" placeholder="İndirim kodu giriniz" required />
+                <button class="btn btn-success">Uygula</button>
             </form>
         </div>
     </div>
 }
 
-<!-- 🔁 ALT BUTONLAR -->
 <div class="mt-4 text-center">
-    <a asp-controller="Menu"
-       asp-action="Index"
-       class="btn btn-primary">
-        Alışverişe Devam Et
-    </a>
-
-    <a asp-controller="Order"
-       asp-action="Checkout"
-       class="btn btn-success ms-2">
-        Siparişi Tamamla
-    </a>
+    <a asp-controller="Menu" asp-action="Index" class="btn btn-primary">Alışverişe Devam Et</a>
+    <a asp-controller="Order" asp-action="Checkout" class="btn btn-success ms-2">Siparişi Tamamla</a>
 </div>
+

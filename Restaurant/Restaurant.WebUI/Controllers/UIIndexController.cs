@@ -4,6 +4,7 @@ namespace Restaurant.WebUI.Controllers
 {
     public class UIIndexController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

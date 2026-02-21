@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Order.Contex;
 using Restaurant.Order.Domain.Entities;
-using Restaurant.Order.Domain.Enum;
-using Restaurant.Order.Dtos.Create;
-using Restaurant.Order.Dtos.Result;
-using Restaurant.Order.Dtos.Update;
+using Restaurant.Order.Dtos;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Restaurant.Order.Services
 {
@@ -20,75 +21,35 @@ namespace Restaurant.Order.Services
             _mapper = mapper;
         }
 
-       
-        public async Task<int> CreateAsync(CreateOrderDto dto)
+        // Yeni Sipariş Oluşturma
+        public async Task CreateAsync(CreateOrderDto dto)
         {
-            var order = _mapper.Map<OrderEntity>(dto);
-            order.Status = OrderStatus.Pending;
-            order.CreatedDate = DateTime.UtcNow;
-            await _context.Orders.AddAsync(order);
+            var entity = _mapper.Map<OrderEntity>(dto);
+            await _context.Orders.AddAsync(entity);
             await _context.SaveChangesAsync();
-            return order.Id;
         }
 
-       
+        // Sipariş ID'sine Göre Getirme
+        public async Task<List<ResultOrderDto>> GetByIdAsync(int orderId)
+        {
+            var values = await _context.Orders
+                  .Include(x => x.Items) // <-- EKSİK OLAN VE EKLEMEN GEREKEN SATIR BU
+                  .Where(x => x.Id == orderId)
+                  .ToListAsync();
+
+            return _mapper.Map<List<ResultOrderDto>>(values);
+        }
+
+        // Kullanıcı ID'sine Göre Siparişleri Getirme
         public async Task<List<ResultOrderDto>> GetByUserIdAsync(string userId)
         {
-            var orders = await _context.Orders
-                .Where(x => x.UserId == userId)
-                .OrderByDescending(x => x.CreatedDate)
-                .ToListAsync();
-            return _mapper.Map<List<ResultOrderDto>>(orders);
-        }
+            // Kullanıcıya ait tüm siparişleri listeler
+            var values = await _context.Orders
+           .Include(x => x.Items) // <-- Bu satır eksikse ürünler gelmez!
+           .Where(x => x.UserId == userId)
+           .ToListAsync();
 
-      
-        public async Task<OrderDetailDto?> GetByIdAsync(int orderId)
-        {
-            var order = await _context.Orders
-                .Include(x => x.Items)
-                .FirstOrDefaultAsync(x => x.Id == orderId);
-
-            if (order is null)
-                return null;
-
-            return _mapper.Map<OrderDetailDto>(order);
-        }
-
-       
-        public async Task UpdateStatusAsync(UpdateOrderStatusDto dto)
-        {
-            var order = await _context.Orders
-                .FirstOrDefaultAsync(x => x.Id == dto.OrderId);
-
-            if (order is null)
-                throw new Exception("Order not found");
-
-            
-            if (order.Status == OrderStatus.Cancelled ||
-                order.Status == OrderStatus.Completed)
-                throw new Exception("Order status cannot be changed");
-
-            order.Status = dto.Status;
-
-            await _context.SaveChangesAsync();
-        }
-
-
-        public async Task CancelAsync(int orderId, string? reason)
-        {
-            var order = await _context.Orders
-                .FirstOrDefaultAsync(x => x.Id == orderId);
-
-            if (order is null)
-                throw new Exception("Order not found");
-
-            if (order.Status != OrderStatus.Pending)
-                throw new Exception("Only pending orders can be cancelled");
-
-            order.Status = OrderStatus.Cancelled;
-            order.CancelReason = reason;
-
-            await _context.SaveChangesAsync();
+            return _mapper.Map<List<ResultOrderDto>>(values);
         }
     }
 }

@@ -1,0 +1,6 @@
+@Restaurant.Payment_HostAddress = http://localhost:5012
+
+GET {{Restaurant.Payment_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

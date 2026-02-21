@@ -23,15 +23,31 @@ namespace Restaurant.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> ConfirmDiscountCoupon(string code)
         {
-            var values = await _discountService.GetDiscountCouponCountRate(code);
+            var rate = await _discountService.GetDiscountCouponCountRate(code);
 
-            var basketValues = await _basketService.GetBasket();
-            var totalPriceWithTax = basketValues.TotalPrice + basketValues.TotalPrice / 100 * 10;
+            if (rate > 0)
+            {
+                // 10 dakika sonra silinecek şekilde ayarla
+                var expireTime = DateTime.Now.AddMinutes(10);
 
-            var totalNewPriceWithDiscount = totalPriceWithTax - (totalPriceWithTax / 100 * values);
-            // ViewBag.totalNewPriceWithDiscount = totalNewPriceWithDiscount;
+                CookieOptions options = new CookieOptions
+                {
+                    Expires = expireTime,
+                    Path = "/",
+                    HttpOnly = true // Güvenlik için sadece sunucu okusun
+                };
 
-            return RedirectToAction("Index", "Basket", new { code = code, discountRate = values, totalNewPriceWithDiscount = totalNewPriceWithDiscount });
+                // Bitiş vaktini çereze yazıyoruz
+                Response.Cookies.Append("CouponExpireTime", expireTime.ToString("yyyy-MM-dd HH:mm:ss"), options);
+
+                // Sepete indirimi yansıt
+                var basket = await _basketService.GetBasket();
+                basket.DiscountCode = code;
+                basket.DiscountRate = rate;
+                await _basketService.SaveBasket(basket);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

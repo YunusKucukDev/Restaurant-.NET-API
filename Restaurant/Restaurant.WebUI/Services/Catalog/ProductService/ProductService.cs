@@ -1,4 +1,6 @@
-﻿using Restaurant.DtoLayer.CatalogDtos.MenuDtos.ProductDtos;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Restaurant.DtoLayer.CatalogDtos.MenuDtos.ProductDtos;
+using System.Net.Http.Json;
 
 namespace Restaurant.WebUI.Services.Catalog.ProductService
 {
@@ -12,6 +14,8 @@ namespace Restaurant.WebUI.Services.Catalog.ProductService
         {
             _httpClient = httpClient;
         }
+
+       
 
         public async Task CreateProduct(CreateProductDto createProductDto)
         {

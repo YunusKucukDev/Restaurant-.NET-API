@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Mesaj Gönderildi";
+    Layout = "~/Views/UI/Index.cshtml";
+}
+
+<style>
+    .success-container {
+        padding: 80px 20px;
+        text-align: center;
+    }
+
+    .success-card {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .check-icon {
+        width: 80px;
+        height: 80px;
+        background: #e8f5e9;
+        color: #2e7d32;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        margin: 0 auto 25px;
+        border: 2px solid #c8e6c9;
+    }
+
+    .success-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .success-text {
+        color: #6c757d;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    .btn-return {
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        background: linear-gradient(45deg, #28a745, #1e7e34);
+        color: white;
+        border: none;
+    }
+
+        .btn-return:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+            color: white;
+        }
+
+    @@media (max-width: 768px) {
+        .success-container {
+            padding: 40px 15px;
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<div class="container success-container">
+    <div class="success-card">
+        <div class="check-icon">
+            <i class="fa fa-check"></i>
+        </div>
+
+        <h2 class="success-title">Mesajınız Bize Ulaştı!</h2>
+
+        <p class="success-text">
+            Bizimle iletişime geçtiğiniz için teşekkür ederiz. Mesajınız başarıyla sistemimize kaydedilmiştir.
+            Müşteri temsilcilerimiz en kısa sürede sizinle iletişime geçecektir.
+        </p>
+
+        <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+            <a href="/Home/Index" class="btn-return">
+                <i class="fa fa-home mr-2"></i> Ana Sayfaya Dön
+            </a>
+            <a href="/Menu/Index" class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                <i class="fa fa-book-open mr-2"></i> Menüye Göz At
+            </a>
+        </div>
+    </div>
+</div>

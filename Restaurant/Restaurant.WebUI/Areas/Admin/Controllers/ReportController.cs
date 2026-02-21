@@ -52,6 +52,7 @@ public class ReportController : Controller
 
 
     [Route("Index")]
+    [HttpGet]
     public async Task<IActionResult> Index(DateTime? start, DateTime? end)
     {
         ViewBag.HideShiftButtons = true; // Vardiya Butonlarını gizlemek için
@@ -145,6 +146,7 @@ public class ReportController : Controller
         return View(viewModel);
     }
 
+    [HttpDelete]
     public async Task<IActionResult> DeleteDailyReport(string id)
     {
         await _dailyReportService.DeleteDailyReports(id);

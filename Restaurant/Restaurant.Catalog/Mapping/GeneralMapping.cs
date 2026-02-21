@@ -19,10 +19,10 @@ namespace Restaurant.Catalog.Mapping
     {
         public GeneralMapping()
         {
-            CreateMap<Branch1_Information ,ResultBranc1_Dto>().ReverseMap();
-            CreateMap<Branch1_Information ,GetByIdBranc1_Dto>().ReverseMap();
-            CreateMap<Branch1_Information ,CreateBranc1_Dto>().ReverseMap();
-            CreateMap<Branch1_Information ,UpdateBranc1_Dto>().ReverseMap();
+            CreateMap<Branch1_Information, ResultBranc1_Dto>().ReverseMap();
+            CreateMap<Branch1_Information, GetByIdBranc1_Dto>().ReverseMap();
+            CreateMap<Branch1_Information, CreateBranc1_Dto>().ReverseMap();
+            CreateMap<Branch1_Information, UpdateBranc1_Dto>().ReverseMap();
 
 
             CreateMap<Branch2_Information, ResultBranc2_Dto>().ReverseMap();
@@ -38,15 +38,13 @@ namespace Restaurant.Catalog.Mapping
 
 
             CreateMap<Product, ResultProductDto>()
-           .ForMember(dest => dest.CategoryName,
-               opt => opt.MapFrom((src, dest, destMember, context) =>
-               {
-                   var categories = context.Items["categories"] as List<Category>;
-
-                   return categories?
-                       .FirstOrDefault(c => c.CategoryId == src.CategoryId)
-                       ?.Name;
-               }));
+     .ForMember(dest => dest.IsFavorite, opt => opt.MapFrom(src => src.IsFavorite)) // Açıkça belirtelim
+     .ForMember(dest => dest.CategoryName,
+         opt => opt.MapFrom((src, dest, destMember, context) =>
+         {
+             var categories = context.Items["categories"] as List<Category>;
+             return categories?.FirstOrDefault(c => c.CategoryId == src.CategoryId)?.Name;
+         }));
             CreateMap<Product, CreateProductDto>().ReverseMap();
             CreateMap<Product, UpdateProductDto>().ReverseMap();
             CreateMap<Product, GetByIdProductDto>().ReverseMap();
@@ -87,6 +85,6 @@ namespace Restaurant.Catalog.Mapping
             CreateMap<FinalReport, GetByIdFinalReportDto>().ReverseMap();
 
         }
-        
+
     }
 }

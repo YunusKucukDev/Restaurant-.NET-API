@@ -1,9 +1,11 @@
-﻿@using Restaurant.DtoLayer.OrderDtos.Result
+﻿@using Restaurant.DtoLayer.OrderDtos
+
 @model List<ResultOrderDto>
 
 @{
     ViewData["Title"] = "Siparişlerim";
     Layout = "~/Views/UI/Index.cshtml";
+    int count = 0 ; 
 }
 
 <div class="container mt-5 mb-5">
@@ -27,7 +29,6 @@
                     <tr>
                         <th>Sipariş No</th>
                         <th>Tarih</th>
-                        <th>Alıcı</th>
                         <th>Tutar</th>
                         <th class="text-center">İşlem</th>
                     </tr>
@@ -35,14 +36,14 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
+                        count++; 
                         <tr>
-                            <td><strong>#@item.OrderId</strong></td>
-                            <td>@item.OrderDate.ToShortDateString()</td>
-                            <td>@item.FullName</td>
+                            <td><strong>#@count</strong></td>
+                            <td>@item.CreatedDate.ToShortDateString()</td>
                             <td class="text-primary fw-bold">@item.TotalPrice ₺</td>
                             <td class="text-center">
-                                <a asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-sm btn-outline-info">
-                                    <i class="fas fa-eye"></i> Detaylar
+                                <a href="/Order/Details/@item.Id" class="btn btn-sm btn-outline-info">
+                                <i class="fas fa-eye"></i> Detaylar
                                 </a>
                             </td>
                         </tr>

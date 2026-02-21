@@ -60,7 +60,5 @@ namespace Restaurant.Catalog.Controllers
             await _productService.DeleteProductAsync(id);
             return Ok("Successfull");
         }
-
-
     }
 }

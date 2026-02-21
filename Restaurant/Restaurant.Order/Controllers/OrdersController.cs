@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Restaurant.Order.Dtos.Create;
-using Restaurant.Order.Dtos.Update;
+using Restaurant.Order.Dtos;
 using Restaurant.Order.Services;
 
 namespace Restaurant.Order.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/orders")]
+    [Route("api/[controller]")] // Veya "api/orders"
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -18,54 +17,25 @@ namespace Restaurant.Order.Controllers
             _orderService = orderService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateOrderDto dto)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOrderById(int id)
         {
-            var orderId = await _orderService.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = orderId }, null);
+            var values = await _orderService.GetByIdAsync(id);
+            return Ok(values);
         }
 
-        // GET /api/orders/user/{userId}
-        [HttpGet("user/{userId}")]
+        [HttpGet("GetByUserId/{userId}")]
         public async Task<IActionResult> GetByUserId(string userId)
         {
-            var orders = await _orderService.GetByUserIdAsync(userId);
-            return Ok(orders);
+            var values = await _orderService.GetByUserIdAsync(userId);
+            return Ok(values);
         }
 
-        // GET /api/orders/{id}
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder(CreateOrderDto createOrderDto)
         {
-            var order = await _orderService.GetByIdAsync(id);
-
-            if (order is null)
-                return NotFound();
-
-            return Ok(order);
-        }
-
-        // PUT /api/orders/{id}/status
-        [HttpPut("{id:int}/status")]
-        public async Task<IActionResult> UpdateStatus(
-            int id,
-            [FromBody] UpdateOrderStatusDto dto)
-        {
-            if (id != dto.OrderId)
-                return BadRequest("Route id and body id do not match");
-
-            await _orderService.UpdateStatusAsync(dto);
-            return NoContent();
-        }
-
-        // PUT /api/orders/{id}/cancel
-        [HttpPut("{id:int}/cancel")]
-        public async Task<IActionResult> Cancel(
-            int id,
-            [FromBody] CancelOrderDto? dto)
-        {
-            await _orderService.CancelAsync(id, dto?.Reason);
-            return NoContent();
+            await _orderService.CreateAsync(createOrderDto);
+            return Ok("Sipariş başarıyla oluşturuldu.");
         }
     }
 }

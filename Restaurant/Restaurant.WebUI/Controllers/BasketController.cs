@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NuGet.ContentModel;
 using Restaurant.DtoLayer.BasketDtos;
 using Restaurant.WebUI.Services.Basket;
 using Restaurant.WebUI.Services.Catalog.ProductService;
@@ -27,41 +28,56 @@ public class BasketController : Controller
     }
 
 
-    [HttpGet("")]
-    public async Task<IActionResult> Index()
+    [HttpGet("Index")]
+    public async Task<IActionResult> Index(string code, int discountRate, decimal totalNewPriceWithDiscount)
     {
         var values = await _basketService.GetBasket();
+        
 
-        // 1. Menü Fiyatı (KDV Dahil Ham Fiyat)
+        if (values == null || !values.BasketItems.Any())
+        {
+            values.DiscountCode = null;
+            values.DiscountRate = null;
+            await _basketService.SaveBasket(values);
+        }
+
+        // 2. Durum: Süre kontrolü (10 dakika doldu mu?)
+        if (Request.Cookies.TryGetValue("CouponExpireTime", out string expireStr))
+        {
+            DateTime expireTime = DateTime.Parse(expireStr);
+            if (DateTime.Now > expireTime)
+            {
+                values.DiscountCode = null;
+                values.DiscountRate = null;
+                await _basketService.SaveBasket(values);
+                Response.Cookies.Delete("CouponExpireTime");
+            }
+        }
+        else if (values.DiscountRate > 0)
+        {
+            values.DiscountCode = null;
+            values.DiscountRate = null;
+            await _basketService.SaveBasket(values);
+        }
+
         decimal menuTotal = values.TotalPrice;
-
-        // 2. İndirim Hesaplama (Menü fiyatı üzerinden)
         decimal discountAmount = 0;
-        if (values.DiscountRate.HasValue)
+
+        if (values.DiscountRate.HasValue && values.DiscountRate.Value > 0)
         {
             discountAmount = menuTotal * values.DiscountRate.Value / 100;
         }
-
-        // 3. İndirimli Fiyat (KDV Dahil)
         decimal discountedMenuPrice = menuTotal - discountAmount;
-
-        // 4. KDV'siz Tutar (Ara Toplam) 
-        // Formül: KDVli Fiyat / 1.10 (KDV %10 ise)
         decimal subTotalExcludingTax = discountedMenuPrice / 1.1m;
-
-        // 5. KDV Tutarı
-        // Formül: KDVli Fiyat - KDV'siz Fiyat
         decimal taxAmount = discountedMenuPrice - subTotalExcludingTax;
+        decimal finalTotal = discountedMenuPrice; 
 
-        // 6. Genel Toplam (KDV Dahil Ödenecek Tutar)
-        decimal finalTotal = subTotalExcludingTax + taxAmount;
-
-        // ViewBag'e gönderiyoruz
+       
         ViewBag.MenuTotal = menuTotal;
         ViewBag.Discount = discountAmount;
-        ViewBag.SubTotal = subTotalExcludingTax; // KDV'siz Ara Toplam
-        ViewBag.Tax = taxAmount;               // Sadece KDV
-        ViewBag.FinalTotal = finalTotal;        // KDV'li Genel Toplam
+        ViewBag.SubTotal = subTotalExcludingTax;
+        ViewBag.Tax = taxAmount;
+        ViewBag.FinalTotal = finalTotal;
 
         return View(values);
     }
@@ -144,6 +160,15 @@ public class BasketController : Controller
         }
 
         return RedirectToAction("Index");
+    }
+
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteBasket()
+    {
+        // userId parametresi zaten API tarafında loginService üzerinden alındığı için buraya boş string de gönderebilirsin
+        await _basketService.DeleteBasket("");
+        return RedirectToAction("Index", "Basket"); 
     }
 
 }

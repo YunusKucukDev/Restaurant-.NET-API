@@ -22,6 +22,7 @@ namespace MultiShop.IdentityServer
            new ApiResource("ResourceImage"){Scopes={ "ImageFullPermission" } },
            new ApiResource("ResourceOcelot"){Scopes={"OcelotFullPermission"} },
            new ApiResource("ResourceMessage"){Scopes={"MessageFullPermission"} },
+          
            new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 

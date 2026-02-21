@@ -1,19 +1,13 @@
-﻿using Restaurant.Order.Dtos.Create;
-using Restaurant.Order.Dtos.Result;
-using Restaurant.Order.Dtos.Update;
+﻿
+
+using Restaurant.Order.Dtos;
 
 namespace Restaurant.Order.Services
 {
     public interface IOrderService
     {
-        Task<int> CreateAsync(CreateOrderDto dto);
-
+        Task CreateAsync(CreateOrderDto dto);
         Task<List<ResultOrderDto>> GetByUserIdAsync(string userId);
-
-        Task<OrderDetailDto?> GetByIdAsync(int orderId);
-
-        Task UpdateStatusAsync(UpdateOrderStatusDto dto);
-
-        Task CancelAsync(int orderId, string? reason);
+        Task<List<ResultOrderDto>> GetByIdAsync(int orderId);   
     }
 }

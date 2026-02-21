@@ -50,9 +50,16 @@ namespace Restaurant.WebUI.Services.Basket
         }
 
 
-        public Task DeleteBasket(string userId)
+        public async Task DeleteBasket(string userId)
         {
-            throw new NotImplementedException();
+            // API tarafındaki DeleteBasket metodunu tetikliyoruz
+            var response = await _httpclient.DeleteAsync("https://localhost:7001/api/Baskets");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                // Hata durumunda loglama yapabilirsin
+                throw new Exception("Sepet API üzerinden silinemedi.");
+            }
         }
 
         public async Task<BasketTotalDto> GetBasket()

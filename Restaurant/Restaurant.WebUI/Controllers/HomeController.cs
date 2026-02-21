@@ -8,6 +8,7 @@ namespace Restaurant.WebUI.Controllers
     public class HomeController : Controller
     {
         [Route("Index")]
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

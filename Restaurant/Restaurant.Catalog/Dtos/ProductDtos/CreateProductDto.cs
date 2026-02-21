@@ -16,6 +16,7 @@ namespace Restaurant.Catalog.Dtos.ProductDtos
         public int DisplayOrder { get; set; }        
 
         public string ImageUrl { get; set; }
+        public bool IsFavorite { get; set; } = false;
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
        

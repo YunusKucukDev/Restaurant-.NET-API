@@ -17,6 +17,7 @@ namespace Restaurant.WebUI.Areas.Admin.Controllers
         }
 
         [Route("Index")]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var values = await _branch2_InformationService.GetAllBranch2_Information();

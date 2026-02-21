@@ -16,5 +16,8 @@
         public string FixedExpenseCollectionName { get; set; }
         public string DailyReportCollectionName { get; set; }
         public string FinalReportCollectionName { get; set; }
+
+
+        public string ContactCollectionName { get; set; }
     }
 }

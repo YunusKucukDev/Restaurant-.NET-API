@@ -51,29 +51,33 @@
             right: 15px;
         }
     }
+
+   
 </style>
  @await Component.InvokeAsync("_HeadUILayoutComponentPartial")
 
 <body>
-    @await Component.InvokeAsync("_NavbarUILayoutComponentPartial")
+    
+        @await Component.InvokeAsync("_NavbarUILayoutComponentPartial")
 
 
-    <div class="bradcam_area breadcam_bg_2">
-        <h3>Menu</h3>
-    </div>
-
-    <section class="contact-section">
-        <div class="container">
-            @RenderBody()
+        <div class="bradcam_area breadcam_bg_2">
         </div>
 
-        <a href="~/Basket/Index" class="floating-cart">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="cart-count">1</span>
-        </a>
-    </section>
 
-    @await Component.InvokeAsync("_FooterUILayoutComponentPartial")
+        <div class="container">
+            @RenderBody()
+
+            <a href="~/Basket/Index" class="floating-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">@await Component.InvokeAsync("BasketCountViewComponent")</span>
+            </a>
+        </div>
+
+        @await Component.InvokeAsync("_FooterUILayoutComponentPartial")
+ 
+   
+    
 </body>
 
 </html>

@@ -1,0 +1,102 @@
+﻿@using Restaurant.DtoLayer.CatalogDtos.ContactDtos
+@model CreateContactDto
+@{
+    ViewData["Title"] = "İletişim";
+    Layout = "~/Views/UI/Index.cshtml";
+}
+
+<section class="contact-section my-5">
+    <div class="container">
+        <div class="row mb-5 text-center">
+            <div class="col-12">
+                <h2 class="display-5 fw-bold text-dark">Bize Ulaşın</h2>
+                <div class="mx-auto bg-primary rounded" style="width: 80px; height: 4px;"></div>
+                <p class="text-muted mt-3">Her türlü soru, öneri ve görüşleriniz için bizimle iletişime geçebilirsiniz.</p>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-lg-12">
+                <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5">
+                    <form asp-action="CreateContact" method="post" class="form-contact">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Adınız</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="fas fa-user text-muted"></i></span>
+                                    <input asp-for="FirstName" class="form-control bg-light border-start-0 ps-0" placeholder="Adınız">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Soyadınız</label>
+                                <input asp-for="Lastname" class="form-control bg-light" placeholder="Soyadınız">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">E-posta Adresi</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="fas fa-envelope text-muted"></i></span>
+                                    <input asp-for="EmailAddress" type="email" class="form-control bg-light border-start-0 ps-0" placeholder="ornek@mail.com">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Telefon</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="fas fa-phone text-muted"></i></span>
+                                    <input asp-for="PhoneNumber" type="tel" class="form-control bg-light border-start-0 ps-0" placeholder="05xx xxx xx xx">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Konu</label>
+                                <input asp-for="Subject" class="form-control bg-light" placeholder="Mesajınızın konusu">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Mesajınız</label>
+                                <textarea asp-for="Message" class="form-control bg-light" rows="5" placeholder="Size nasıl yardımcı olabiliriz?"></textarea>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill shadow-sm py-3 fw-bold">
+                                    <i class="fas fa-paper-plane me-2"></i> Mesajı Gönder
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .bg-primary-soft {
+        background-color: rgba(13, 110, 253, 0.1);
+    }
+
+    .bg-success-soft {
+        background-color: rgba(25, 135, 84, 0.1);
+    }
+
+    .bg-info-soft {
+        background-color: rgba(13, 202, 240, 0.1);
+    }
+
+    .form-control:focus {
+        background-color: #fff !important;
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+    }
+
+    .hover-opacity-100:hover {
+        opacity: 1 !important;
+        transition: 0.3s;
+    }
+
+    .card {
+        transition: transform 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

@@ -5,6 +5,7 @@ using Restaurant.Catalog.Services.AboutService;
 using Restaurant.Catalog.Services.Branch1_InformationService;
 using Restaurant.Catalog.Services.Branch2_InformationService;
 using Restaurant.Catalog.Services.CategoryService;
+using Restaurant.Catalog.Services.ContactService;
 using Restaurant.Catalog.Services.DailyReportService;
 using Restaurant.Catalog.Services.FinalReportService;
 using Restaurant.Catalog.Services.FixedExpenseService;
@@ -54,6 +55,7 @@ builder.Services.AddScoped<IOutcomeService, OutcomeService>();
 builder.Services.AddScoped<IFixedExpenseService, FixedExpenseService>();
 builder.Services.AddScoped<IDailyReportService, DailyReportService>();
 builder.Services.AddScoped<IFinalReportService, FinalReportService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 
 
 builder.Services.AddControllers();

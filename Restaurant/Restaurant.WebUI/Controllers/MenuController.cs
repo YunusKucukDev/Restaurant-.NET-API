@@ -14,6 +14,7 @@ namespace Restaurant.WebUI.Controllers
         }
 
 
+        [HttpGet]
         public async Task<IActionResult>  Index()
         {
             var menu = await _categoryService.GetMenuAsync();

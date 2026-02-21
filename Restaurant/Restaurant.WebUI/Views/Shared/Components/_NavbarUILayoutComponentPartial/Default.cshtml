@@ -1,41 +1,67 @@
-﻿<header class="">
+﻿<header>
     <div class="header-area">
         <div id="sticky-header" class="main-header-area">
             <div class="container-fluid p-0">
                 <div class="row align-items-center no-gutters">
                     <div class="col-xl-5 col-lg-5">
-                        <div class="main-menu  d-none d-lg-block">
+                        <div class="main-menu d-none d-lg-block">
                             <nav>
                                 <ul id="navigation">
-                                    <li><a href="/Home/Index">home</a></li>
-                                    <li><a href="/Menu/Index">Menu</a></li>
-                                    <li><a href="/About/Index">About</a></li>
-                                    <li><a class="active" href="/Contact/Index">Contact</a></li>
-                                    <li><a  href="/Admin/Dashboard/Index">Admin</a></li>
+                                    <li><a href="/Home/Index">AnaSayfa</a></li>
+                                    <li><a href="/Menu/Index">Menü</a></li>
+                                    <li><a href="/About/Index">Hakkımızda</a></li>
+                                    <li><a href="/Contact/CreateContact">İletişim</a></li>
+                                    <li><a href="/Admin/Dashboard/Index"><span style="color:chartreuse">Yönetim</span></a></li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
+
                     <div class="col-xl-2 col-lg-2">
-                        <div class="logo-img">
+                        <div class="logo-img text-center">
                             <a href="/Home/Index">
-                                <img src="~/burger-master/img/logo.png" alt="">
+                                <img src="~/burger-master/img/f.jpg" alt="Logo" style="max-width: 200px;">
                             </a>
                         </div>
                     </div>
+
                     <div class="col-xl-5 col-lg-5 d-none d-lg-block">
-                        <div class="book_room">
-                            
-                            <div class="book_btn d-none d-xl-block text-center">
-                                <p class="text-white">Şube 1</p>
-                                <a class="#" href="https://www.whatsapp.com/?lang=tr">@ViewBag.branch1Phone</a>
+                        <div class="book_room d-flex align-items-center justify-content-end">
+
+                            <div class="book_btn d-none d-xl-block text-center mr-3">
+                               
+                                <a href="tel:@ViewBag.branch1Phone" style="font-size: 13px;">@ViewBag.branch1Phone</a>
                             </div>
-                            <div class="book_btn d-none d-xl-block text-center">
-                                <p class="text-white">Şube 2</p>
-                                <a class="#" href="https://www.whatsapp.com/?lang=tr">@ViewBag.branch2Phone</a>
+
+                            <div class="book_btn d-none d-xl-block text-center mr-4">
+
+                                <a href="tel:@ViewBag.branch2Phone" style="font-size: 13px;">@ViewBag.branch2Phone</a>
                             </div>
+
+                            <div class="main-menu d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li class="user-dropdown">
+                                            <a href="#" class="d-flex align-items-center">
+                                                <i class="fas fa-user-circle fa-2x text-white" style="font-size: 45px;"></i>
+                                                <i class="ti-angle-down ml-2 text-white" style="font-size: 10px;"></i>
+                                            </a>
+                                            <ul class="submenu shadow" style="width: 200px; left: auto; right: 0;">
+                                                <li><a href="/Order/Index"><i class="fas fa-box-open mr-2"></i> Siparişlerim</a></li>
+                                                <li><a href="/Message/Index"><i class="fas fa-envelope mr-2"></i> Mesajlarım</a></li>
+                                                <li><a href="/FakeMoney/Index"><i class="fas fa-wallet mr-2"></i> Bakiyem</a></li>
+                                                <li><a href="/User/Index"><i class="fas fa-user mr-2"></i> Profilim</a></li>
+                                                <hr class="my-1" style="border-top: 1px solid #eee;">
+                                                <li><a href="/Login/Logout" class="text-danger"><i class="fas fa-sign-out-alt mr-2"></i> Çıkış Yap</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+
                         </div>
                     </div>
+
                     <div class="col-12">
                         <div class="mobile_menu d-block d-lg-none"></div>
                     </div>
@@ -44,3 +70,48 @@
         </div>
     </div>
 </header>
+
+<style>
+    /* Dropdown'ın sağa yaslı açılması için */
+    .user-dropdown {
+        position: relative;
+    }
+
+        .user-dropdown .submenu {
+            top: 120% !important; /* Biraz aşağıdan başlasın */
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .user-dropdown:hover .submenu {
+            visibility: visible;
+            opacity: 1;
+            top: 100% !important;
+        }
+
+    .submenu li a {
+        padding: 10px 20px !important;
+        display: flex !important;
+        align-items: center;
+        font-size: 14px !important;
+        color: #333 !important;
+    }
+
+        .submenu li a:hover {
+            color: #ffc107 !important; /* Burger sarısı hover */
+            background: #f8f9fa;
+        }
+
+    .mr-3 {
+        margin-right: 1rem;
+    }
+
+    .mr-4 {
+        margin-right: 1.5rem;
+    }
+
+    .ml-2 {
+        margin-left: 0.5rem;
+    }
+</style>

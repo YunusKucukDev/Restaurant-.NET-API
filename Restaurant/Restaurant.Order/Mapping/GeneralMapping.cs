@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Restaurant.Order.Domain.Entities;
-using Restaurant.Order.Dtos.Create;
-using Restaurant.Order.Dtos.Result;
+using Restaurant.Order.Dtos;
+
 
 namespace Restaurant.Order.Mapping
 {
@@ -9,12 +9,9 @@ namespace Restaurant.Order.Mapping
     {
         public GeneralMapping()
         {
-            CreateMap<CreateOrderDto, OrderEntity>();
-            CreateMap<CreateOrderItemDto, OrderItemEntity>();
-
-            CreateMap<OrderEntity, ResultOrderDto>();
-            CreateMap<OrderEntity, OrderDetailDto>();
-            CreateMap<OrderItemEntity, OrderItemDto>();
+            CreateMap<OrderEntity,ResultOrderDto>().ReverseMap();
+            CreateMap<OrderEntity,CreateOrderDto>().ReverseMap();
+            CreateMap<OrderItemEntity, OrderItemEntity>().ReverseMap();
         }
     }
 }

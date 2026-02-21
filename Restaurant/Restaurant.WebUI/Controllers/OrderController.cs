@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Restaurant.DtoLayer.OrderDtos.Create;
-using Restaurant.DtoLayer.OrderDtos.Result;
+using Restaurant.DtoLayer.OrderDtos;
 using Restaurant.WebUI.Services.Basket;
 using Restaurant.WebUI.Services.Interfaces;
 using Restaurant.WebUI.Services.Order;
@@ -22,16 +21,15 @@ namespace Restaurant.WebUI.Controllers
             _userService = userService;
         }
 
-
         [HttpGet("Index")]
         public async Task<IActionResult> Index()
         {
             var userId = await _userService.GetUserInfo();
-            var values = await _orderService.GetOrdersByUserIdAsync(userId.Id);
+            var values = await _orderService.GetByUserIdAsync(userId.Id);
             return View(values);
         }
 
-        // Sipariş tamamlama sayfası (Adres bilgilerinin girildiği yer)
+       
         [HttpGet("Checkout")]
         public async Task<IActionResult> Checkout()
         {
@@ -40,30 +38,18 @@ namespace Restaurant.WebUI.Controllers
             {
                 return RedirectToAction("Index", "Basket");
             }
-
-            // 1. Menü Fiyatı (KDV Dahil Ham Toplam)
             var total = basket.TotalPrice;
 
-            // 2. İndirim Tutarı
             decimal discount = basket.DiscountRate.HasValue ? (total * basket.DiscountRate.Value / 100) : 0;
-
-            // 3. İndirimli Fiyat (KDV Dahil)
             var discountedPrice = total - discount;
-
-            // 4. KDV'siz Tutar (Ara Toplam)
-            // Örn: 110 TL / 1.1 = 100 TL
             var subTotalWithoutTax = discountedPrice / 1.1m;
-
-            // 5. KDV Tutarı (Sadece vergi kısmı)
-            // Örn: 110 TL - 100 TL = 10 TL
             var tax = discountedPrice - subTotalWithoutTax;
 
-            // ViewBag değerleri
-            ViewBag.TotalPrice = total;           // Ham Menü Toplamı
-            ViewBag.Discount = discount;          // Yapılan İndirim
-            ViewBag.SubTotal = subTotalWithoutTax; // Ara Toplam (KDV Hariç)
-            ViewBag.Tax = tax;                    // Vergi
-            ViewBag.FinalTotal = discountedPrice; // Genel Toplam (Ödenecek)
+            ViewBag.TotalPrice = total;          
+            ViewBag.Discount = discount;          
+            ViewBag.SubTotal = subTotalWithoutTax; 
+            ViewBag.Tax = tax;                   
+            ViewBag.FinalTotal = discountedPrice; 
 
             return View(new CreateOrderDto());
         }
@@ -72,52 +58,65 @@ namespace Restaurant.WebUI.Controllers
         [HttpPost("Checkout")]
         public async Task<IActionResult> Checkout(CreateOrderDto dto)
         {
+            // 1. Sepet bilgilerini getir
             var basket = await _basketService.GetBasket();
-            dto.OrderDetails = basket.BasketItems.Select(x => new OrderDetailDto
+
+            // 2. Sepetteki ürünleri Items listesine map'le
+            dto.Items = basket.BasketItems.Select(x => new OrderItemEntity
             {
                 ProductId = x.ProductId,
                 ProductName = x.ProductName,
-                ProductPrice = (int)x.Price,
-                ProductAmount = x.Quantity,
-                TotalPrice = (int)(x.Price * x.Quantity)
+                Price = (int)x.Price,
+                Quantity = x.Quantity
             }).ToList();
 
-            
-            dto.UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0";
-            dto.OrderDate = DateTime.Now;
+            // 3. Bilgileri set et
+            dto.UserId = basket.UserId;
+            dto.CreatedDate = DateTime.Now;
 
-            
+            // 4. Hesaplamalar
             decimal discount = basket.DiscountRate.HasValue ? (basket.TotalPrice * basket.DiscountRate.Value / 100) : 0;
             dto.TotalPrice = (int)((basket.TotalPrice - discount) * 1.10m);
 
-           
-            var result = await _orderService.CreateOrderAsync(dto);
-
-            if (result)
+            try
             {
-               
-                await _basketService.RemoveBasketItem("all"); 
-                return RedirectToAction("Success");
-            }
+                // 5. Siparişi oluştur (var result kısmını sildik çünkü metot void/Task dönüyor)
+                await _orderService.CreateAsync(dto);
 
-            ModelState.AddModelError("", "Sipariş işlenirken bir hata oluştu.");
-            return View(dto);
+                // 6. Başarılıysa Ödeme sayfasına yönlendir
+                return RedirectToAction("Index", "Payment");
+            }
+            catch (Exception ex)
+            {
+                // Bir hata oluşursa kullanıcıya bildir
+                ModelState.AddModelError("", "Sipariş oluşturulurken bir hata oluştu: " + ex.Message);
+                return View(dto);
+            }
         }
 
-        
+
         [HttpGet("Success")]
         public IActionResult Success()
         {
+            _basketService.DeleteBasket("");
             return View();
         }
 
-      
+
+
+
         [HttpGet("Details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
-            var order = await _orderService.GetOrderByIdAsync(id);
-            if (order == null) return NotFound();
-            return View(order);
+            var values = await _orderService.GetByIdAsync(id);
+            var singleOrder = values.FirstOrDefault();
+
+            if (singleOrder == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(singleOrder); // Listeyi değil, tek bir ResultOrderDto gönderiyoruz
         }
     }
 }

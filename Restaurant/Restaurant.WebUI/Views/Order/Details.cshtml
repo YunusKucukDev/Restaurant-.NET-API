@@ -1,0 +1,64 @@
+﻿@using Restaurant.DtoLayer.OrderDtos
+@model ResultOrderDto  
+
+@{
+    ViewData["Title"] = "Sipariş Detayı";
+    Layout = "~/Views/UI/Index.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Sipariş Detayı: #@Model.Id</h4>
+            <a href="/Order/Index" class="btn btn-light btn-sm"><i class="fas fa-arrow-left"></i> Geri Dön</a>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <p class="mb-1 text-muted">Sipariş Tarihi</p>
+                    <h5 class="fw-bold">@Model.CreatedDate.ToString("dd.MM.yyyy HH:mm")</h5>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-1 text-muted">Toplam Ödeme</p>
+                    <h3 class="text-success fw-bold">@Model.TotalPrice.ToString("C2")</h3>
+                </div>
+            </div>
+
+            <h5 class="border-bottom pb-2 mb-3 text-secondary">Sipariş Edilen Ürünler</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Ürün Adı</th>
+                            <th class="text-center">Adet</th>
+                            <th class="text-end">Birim Fiyat</th>
+                            <th class="text-end">Ara Toplam</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Items != null && Model.Items.Any())
+                        {
+                            foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>@item.ProductName</td>
+                                    <td class="text-center">@item.Quantity</td>
+                                    <td class="text-end">@item.Price.ToString("C2")</td>
+                                    <td class="text-end fw-bold">@((item.Price * item.Quantity).ToString("C2"))</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-danger py-3">
+                                    Ürün detayları bulunamadı.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

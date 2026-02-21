@@ -14,6 +14,7 @@ namespace Restaurant.WebUI.Controllers
             _userService = userService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var values = await _userService.GetUserInfo();

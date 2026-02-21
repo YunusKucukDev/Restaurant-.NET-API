@@ -1,7 +1,5 @@
-﻿using System.Net.Http;
-using Restaurant.DtoLayer.OrderDtos.Update;
-using Restaurant.DtoLayer.OrderDtos.Create;
-using Restaurant.DtoLayer.OrderDtos.Result;
+﻿using Restaurant.DtoLayer.OrderDtos;
+using System.Net.Http.Json;
 
 namespace Restaurant.WebUI.Services.Order
 {
@@ -13,33 +11,33 @@ namespace Restaurant.WebUI.Services.Order
         {
             _httpClient = httpClient;
         }
+        
 
-        public async Task<List<ResultOrderDto>> GetOrdersByUserIdAsync(string userId)
+        // API'de: [HttpPost]
+        public async Task CreateAsync(CreateOrderDto dto)
         {
-            var response = await _httpClient.GetFromJsonAsync<List<ResultOrderDto>>($"https://localhost:7300/api/orders/user/{userId}");
+            var response = await _httpClient.PostAsJsonAsync("https://localhost:7300/api/orders", dto);
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                // Hata durumunda loglama yapılabilir veya exception fırlatılabilir
+                throw new Exception("Sipariş oluşturulurken bir hata oluştu.");
+            }
+        }
+
+        // API'de: [HttpGet("{id}")]
+        public async Task<List<ResultOrderDto>> GetByIdAsync(int orderId)
+        {
+            // API'deki GetOrderById metoduna istek atar
+            var response = await _httpClient.GetFromJsonAsync<List<ResultOrderDto>>($"https://localhost:7300/api/orders/{orderId}");
             return response ?? new List<ResultOrderDto>();
         }
 
-        public async Task<OrderDetailDto> GetOrderByIdAsync(int id)
+        // API'de: [HttpGet("GetByUserId/{userId}")]
+        public async Task<List<ResultOrderDto>> GetByUserIdAsync(string userId)
         {
-            return await _httpClient.GetFromJsonAsync<OrderDetailDto>($"https://localhost:7300/api/orders/{id}");
-        }
-
-        public async Task<bool> CreateOrderAsync(CreateOrderDto dto)
-        {
-            var response = await _httpClient.PostAsJsonAsync("https://localhost:7300/api/orders", dto);
-            return response.IsSuccessStatusCode;
-        }
-
-        public async Task UpdateStatusAsync(UpdateOrderStatusDto dto)
-        {
-            await _httpClient.PutAsJsonAsync($"https://localhost:7300/api/orders/{dto.OrderId}/status", dto);
-        }
-
-        public async Task DeleteStatusAsync(UpdateOrderStatusDto dto)
-        {
-            await _httpClient.PutAsJsonAsync($"https://localhost:7300/api/orders/{dto.OrderId}/cancel", dto);
+            var response = await _httpClient.GetFromJsonAsync<List<ResultOrderDto>>($"https://localhost:7300/api/orders/GetByUserId/{userId}");
+            return response ?? new List<ResultOrderDto>();
         }
     }
 }
-

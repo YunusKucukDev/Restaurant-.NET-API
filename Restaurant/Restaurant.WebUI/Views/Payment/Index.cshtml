@@ -1,0 +1,144 @@
+﻿@{
+    ViewData["Title"] = "Ödeme Yöntemi";
+    Layout = "~/Views/UI/Index.cshtml";
+}
+
+<div class="container py-5 min-vh-100">
+    <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold text-dark">Ödeme Yöntemi Seçiniz</h2>
+        <p class="text-muted fs-5">Lütfen size en uygun ödeme seçeneğini belirleyerek devam edin.</p>
+        <div class="mx-auto border-bottom border-primary border-3" style="width: 80px;"></div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-lg-5 col-md-6">
+            <div class="card h-100 shadow-lg border-0 payment-card text-center p-4 transition"
+                 style="cursor:pointer; border-radius: 20px;"
+                 onclick="showPayment('online', this)">
+                <div class="card-body py-5">
+                    <div class="icon-box mb-4">
+                        <i class="fas fa-credit-card fa-4x text-primary"></i>
+                    </div>
+                    <h3 class="card-title fw-bold mb-3">Online Kredi Kartı</h3>
+                    <p class="card-text text-secondary fs-5">Banka veya kredi kartınızla anında, güvenli ödeme yapın.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5 col-md-6">
+            <div class="card h-100 shadow-lg border-0 payment-card text-center p-4 transition"
+                 style="cursor:pointer; border-radius: 20px;"
+                 onclick="showPayment('cash', this)">
+                <div class="card-body py-5">
+                    <div class="icon-box mb-4">
+                        <i class="fas fa-hand-holding-usd fa-4x text-success"></i>
+                    </div>
+                    <h3 class="card-title fw-bold mb-3">Kapıda Ödeme</h3>
+                    <p class="card-text text-secondary fs-5">Ödemenizi teslimat anında kapıda nakit veya kartla yapın.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="onlinePaymentArea" class="mt-5 collapse">
+        <div class="card border-0 shadow-lg" style="border-radius: 15px;">
+            <div class="card-header bg-primary text-white p-4" style="border-radius: 15px 15px 0 0;">
+                <h4 class="mb-0"><i class="fas fa-shield-alt me-2"></i> Kredi Kartı Bilgilerini Giriniz</h4>
+            </div>
+            <div class="card-body p-5">
+                <form asp-controller="Payment" asp-action="SelectPaymentMethod" method="post">
+                    <input type="hidden" name="orderId" value="@ViewBag.OrderId" />
+                    <input type="hidden" name="choice" value="true" />
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold fs-5">Kart Üzerindeki İsim</label>
+                            <input type="text" name="CardName" class="form-control form-control-lg bg-light" placeholder="Ad Soyad" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold fs-5">Kart Numarası</label>
+                            <input type="text" name="CardNumber" class="form-control form-control-lg bg-light" placeholder="0000 0000 0000 0000" required />
+                        </div>
+                    </div>
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-primary btn-xl px-5 py-3 fs-5 fw-bold shadow">
+                            Ödemeyi Güvenle Tamamla <i class="fas fa-chevron-right ms-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="cashPaymentArea" class="mt-5 collapse">
+        <div class="alert alert-success border-0 shadow-lg p-5" style="border-radius: 15px;">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle fa-4x"></i>
+                </div>
+                <div class="ms-4">
+                    <h3 class="fw-bold">Harika Tercih!</h3>
+                    <p class="fs-5 mb-0">Siparişiniz onaylandığında kuryemiz kapıda ödemenizi alacaktır. Ekstra bir işlem yapmanıza gerek yoktur.</p>
+                </div>
+            </div>
+            <form asp-controller="Payment" asp-action="SelectPaymentMethod" method="post" class="text-end mt-4">
+                <input type="hidden" name="orderId" value="@ViewBag.OrderId" />
+                <input type="hidden" name="choice" value="false" />
+                <button type="submit" class="btn btn-success btn-xl px-5 py-3 fs-5 fw-bold shadow">
+                    Siparişi Şimdi Onayla <i class="fas fa-truck ms-2"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .transition {
+        transition: all 0.3s ease;
+    }
+
+    .payment-card:hover {
+        transform: translateY(-10px);
+        background-color: #f8f9ff;
+    }
+
+    .btn-xl {
+        border-radius: 10px;
+        transition: all 0.2s;
+    }
+
+        .btn-xl:hover {
+            transform: scale(1.05);
+        }
+
+    .selected-card {
+        border: 3px solid #0d6efd !important;
+        background-color: #f0f4ff;
+    }
+</style>
+
+<script>
+    function showPayment(type, element) {
+        // Kartların seçim stilini temizle
+        document.querySelectorAll('.payment-card').forEach(card => card.classList.remove('selected-card'));
+        // Seçilen karta stil ekle
+        element.classList.add('selected-card');
+
+        // Alanları göster/gizle
+        if (type === 'online') {
+            document.getElementById('onlinePaymentArea').style.display = 'block';
+            document.getElementById('cashPaymentArea').style.display = 'none';
+        } else {
+            document.getElementById('onlinePaymentArea').style.display = 'none';
+            document.getElementById('cashPaymentArea').style.display = 'block';
+        }
+
+        // Form alanına otomatik kaydır
+        window.scrollTo({
+            top: document.getElementById(type + 'PaymentArea').offsetTop - 100,
+            behavior: 'smooth'
+        });
+    }
+</script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

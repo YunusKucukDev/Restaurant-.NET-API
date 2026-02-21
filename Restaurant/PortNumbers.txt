@@ -9,3 +9,4 @@ basket -- 7001
 Discount -- 7002 -- api
 discount -- 7200 -- UI
 order -- 7003 -- api
+payment -- 7004 -- api

@@ -23,6 +23,8 @@ namespace Restaurant.Catalog.Entities
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
+        public bool IsFavorite { get; set; } = false;
+
         [BsonRepresentation(BsonType.ObjectId)]
         public string CategoryId { get; set; }
 
