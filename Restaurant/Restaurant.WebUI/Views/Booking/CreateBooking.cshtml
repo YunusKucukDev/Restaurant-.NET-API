@@ -1,132 +1,179 @@
 ﻿@using Restaurant.DtoLayer.CatalogDtos.BookingDtos
-
 @{
     ViewData["Title"] = "CreateBooking";
     Layout = "~/Views/UI/Index.cshtml";
 }
-
 @model CreateBookingDto
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 52px;
-        height: 26px;
-        margin-left: 10px;
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fa;
     }
 
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        background-color: #ccc;
-        border-radius: 26px;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        transition: .3s;
+    .booking-card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        overflow: hidden;
+        margin-top: 50px;
+        margin-bottom: 50px;
     }
 
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            border-radius: 50%;
-            transition: .3s;
-        }
-
-    input:checked + .slider {
-        background-color: #28a745;
+    .booking-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        padding: 40px;
+        text-align: center;
+        color: white;
     }
 
-        input:checked + .slider:before {
-            transform: translateX(26px);
+        .booking-header h2 {
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
-    .status-text {
+        .booking-header p {
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+    .card-body {
+        padding: 40px;
+        background: white;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #444;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+    }
+
+    .input-group-text {
+        background-color: #fdfdfd;
+        border-right: none;
+        color: #2a5298;
+    }
+
+    .form-control {
+        border-left: none;
+        border-radius: 0 8px 8px 0;
+        padding: 12px;
+        transition: all 0.3s;
+    }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #ced4da;
+            background-color: #fcfcfc;
+        }
+
+    .btn-save {
+        background: #28a745;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 50px;
         font-weight: 600;
-        margin-left: 10px;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+            background: #218838;
+        }
+
+    .section-title {
+        font-size: 1.1rem;
+        color: #2a5298;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 10px;
+        margin-bottom: 25px;
+        font-weight: 600;
     }
 </style>
 
-<div class="row">
-    <div class="col-md-3"></div>
-
-    <div class="col-md-6">
-        <div class="card">
-            <form method="post" asp-action="CreateBooking">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Rezervasyon</h4>
-
-                    <!-- Name -->
-                    <div class="form-group row">
-                        <label class="col-sm-4 text-right col-form-label">İsminiz</label>
-                        <div class="col-sm-8">
-                            <input asp-for="Name" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 text-right col-form-label">Soyisminiz</label>
-                        <div class="col-sm-8">
-                            <input asp-for="Surname" class="form-control" />
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <div class="form-group row">
-                        <label class="col-sm-4 text-right col-form-label">Kişi Sayısı</label>
-                        <div class="col-sm-8">
-                            <input asp-for="NumberOfPeople" type="number" class="form-control" />
-                        </div>
-                    </div>
-
-                    <!-- DisplayOrder -->
-                    <div class="form-group row">
-                        <label class="col-sm-4 text-right col-form-label">Telefon numarası</label>
-                        <div class="col-sm-8">
-                            <input asp-for="PhoneNumber" type="tel" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 text-right col-form-label">Email</label>
-                        <div class="col-sm-8">
-                            <input asp-for="Email" type="email" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 text-right col-form-label">Tarih</label>
-                        <div class="col-sm-8">
-                            <input asp-for="Date" type="date" class="form-control" />
-                        </div>
-                    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card booking-card">
+                <div class="booking-header">
+                    <h2><i class="fas fa-utensils me-2"></i> Masanızı Ayırtın</h2>
+                    <p>Harika bir deneyim için sadece birkaç saniyenizi ayırın.</p>
                 </div>
 
-                <div class="border-top">
-                    <div class="card-body text-right">
-                        <button type="submit" class="btn btn-primary">
-                            Kaydet
-                        </button>
-                    </div>
-                </div>
+                <form method="post" asp-action="CreateBooking">
+                    <div class="card-body">
 
-            </form>
+                        <div class="section-title"><i class="fas fa-user-edit me-2"></i> İletişim Bilgileri</div>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">Adınız</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input asp-for="Name" class="form-control" placeholder="Örn: Ahmet" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">Soyadınız</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input asp-for="Surname" class="form-control" placeholder="Örn: Yılmaz" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">E-posta Adresi</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input asp-for="Email" type="email" class="form-control" placeholder="isim@mail.com" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">Telefon Numarası</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="05XX XXX XX XX" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-title mt-4"><i class="fas fa-calendar-alt me-2"></i> Rezervasyon Detayları</div>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">Kişi Sayısı</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                                    <input asp-for="NumberOfPeople" type="number" class="form-control" min="1" max="20" placeholder="Kaç kişi?" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">Rezervasyon Tarihi</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                    <input asp-for="Date" type="date" class="form-control" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-save text-white">
+                                <i class="fas fa-paper-plane me-2"></i> Rezervasyonu Tamamla
+                            </button>
+                            <div class="mt-3">
+                                <small class="text-muted text-center d-block">Kaydederek restoran kurallarını kabul etmiş olursunuz.</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-
-    <div class="col-md-3"></div>
 </div>
-
-
