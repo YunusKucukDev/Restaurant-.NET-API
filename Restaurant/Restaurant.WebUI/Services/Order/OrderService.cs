@@ -39,5 +39,10 @@ namespace Restaurant.WebUI.Services.Order
             var response = await _httpClient.GetFromJsonAsync<List<ResultOrderDto>>($"https://localhost:7300/api/orders/GetByUserId/{userId}");
             return response ?? new List<ResultOrderDto>();
         }
+
+        public async Task<int> GetOrderCount()
+        {
+            return await _httpClient.GetFromJsonAsync<int>("https://localhost:7300/api/orders/GetOrderCount");
+        }
     }
 }

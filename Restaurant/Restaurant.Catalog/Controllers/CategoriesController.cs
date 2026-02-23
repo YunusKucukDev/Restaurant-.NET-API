@@ -39,6 +39,13 @@ namespace Restaurant.Catalog.Controllers
             return Ok(values);
         }
 
+        [HttpGet("GetCategoryCount")]
+        public async Task<IActionResult> GetCategoryCount()
+        {
+            var count = await _categoryService.GetCategoryCount();
+            return Ok(count);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
         {

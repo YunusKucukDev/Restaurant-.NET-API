@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Restaurant.WebUI.Handlers;
+using Restaurant.WebUI.Hubs;
 using Restaurant.WebUI.Services.Basket;
 using Restaurant.WebUI.Services.Catalog.AboutService;
+using Restaurant.WebUI.Services.Catalog.BookingService;
 using Restaurant.WebUI.Services.Catalog.Branch1_InformationServices;
 using Restaurant.WebUI.Services.Catalog.Branch2_InformationServices;
 using Restaurant.WebUI.Services.Catalog.CategoryService;
@@ -11,6 +13,7 @@ using Restaurant.WebUI.Services.Catalog.DailyReportService;
 using Restaurant.WebUI.Services.Catalog.FinalReportService;
 using Restaurant.WebUI.Services.Catalog.FixedExpense;
 using Restaurant.WebUI.Services.Catalog.IncomeService;
+using Restaurant.WebUI.Services.Catalog.NotificationService;
 using Restaurant.WebUI.Services.Catalog.OutcomeService;
 using Restaurant.WebUI.Services.Catalog.ProductService;
 using Restaurant.WebUI.Services.Catalog.SpecialMenuService;
@@ -19,6 +22,7 @@ using Restaurant.WebUI.Services.DiscountCoupon;
 using Restaurant.WebUI.Services.Interfaces;
 using Restaurant.WebUI.Services.Order;
 using Restaurant.WebUI.Services.PaymentService;
+using Restaurant.WebUI.Services.RapidAPICurrency;
 using Restaurant.WebUI.settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,6 +47,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         opt.SlidingExpiration = true;
     });
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().SetIsOriginAllowed((host) => true);
+    });
+});
+
+builder.Services.AddSignalR();
 
 builder.Services.AddControllersWithViews();
 
@@ -85,6 +99,9 @@ builder.Services.AddHttpClient<IFixedExpenseService, FixedExpenseService>().AddH
 builder.Services.AddHttpClient<IIncomeService, IncomeService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 builder.Services.AddHttpClient<IOutcomeService, OutcomeService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 builder.Services.AddHttpClient<IPaymentService, PaymentService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddHttpClient<IBookingService, BookingService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddHttpClient<INotificationService, NotificationService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+builder.Services.AddHttpClient<MoneyCurrencyService>().AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 builder.Services.AddSession(); // Builder tarafına
 
 
@@ -111,6 +128,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Index}/{id?}");
 
+app.UseCors("CorsPolicy");
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
@@ -118,5 +137,5 @@ app.UseEndpoints(endpoints =>
       pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
     );
 });
-
+app.MapHub<SignalRHub>("/signalrhub");
 app.Run();

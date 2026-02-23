@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Restaurant.Catalog.Dtos.SpecialMenuDtos;
 using Restaurant.Catalog.Services.AboutService;
+using Restaurant.Catalog.Services.BookingService;
 using Restaurant.Catalog.Services.Branch1_InformationService;
 using Restaurant.Catalog.Services.Branch2_InformationService;
 using Restaurant.Catalog.Services.CategoryService;
@@ -10,6 +11,7 @@ using Restaurant.Catalog.Services.DailyReportService;
 using Restaurant.Catalog.Services.FinalReportService;
 using Restaurant.Catalog.Services.FixedExpenseService;
 using Restaurant.Catalog.Services.IncomeService;
+using Restaurant.Catalog.Services.NotificationServices;
 using Restaurant.Catalog.Services.OutComeService;
 using Restaurant.Catalog.Services.ProductService;
 using Restaurant.Catalog.Services.SpecialMenuService;
@@ -56,6 +58,8 @@ builder.Services.AddScoped<IFixedExpenseService, FixedExpenseService>();
 builder.Services.AddScoped<IDailyReportService, DailyReportService>();
 builder.Services.AddScoped<IFinalReportService, FinalReportService>();
 builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 
 builder.Services.AddControllers();

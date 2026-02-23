@@ -17,5 +17,8 @@
         public string DailyReportCollectionName { get; set; }
         public string FinalReportCollectionName { get; set; }
         public string ContactCollectionName { get; set; }
+        public string BookingCollectionName { get; set; }
+        public string NotificationCollectionName { get; set; }
+
     }
 }

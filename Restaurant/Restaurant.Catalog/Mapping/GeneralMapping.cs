@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Restaurant.Catalog.Dtos.About;
+using Restaurant.Catalog.Dtos.BookingDtos;
 using Restaurant.Catalog.Dtos.Branch1_Dtos;
 using Restaurant.Catalog.Dtos.Branch2_Dtos;
 using Restaurant.Catalog.Dtos.CategoryDtos;
@@ -8,6 +9,7 @@ using Restaurant.Catalog.Dtos.Dtos.IncomeDtos;
 using Restaurant.Catalog.Dtos.FinalReportDtos;
 using Restaurant.Catalog.Dtos.FixedExpenseDto;
 using Restaurant.Catalog.Dtos.IncomeDtos;
+using Restaurant.Catalog.Dtos.NotificationDtos;
 using Restaurant.Catalog.Dtos.OutcomeDtos;
 using Restaurant.Catalog.Dtos.ProductDtos;
 using Restaurant.Catalog.Dtos.SpecialMenuDtos;
@@ -83,6 +85,13 @@ namespace Restaurant.Catalog.Mapping
             CreateMap<FinalReport, ResultFinalReportDto>().ReverseMap();
             CreateMap<FinalReport, CreateFinalReportDto>().ReverseMap();
             CreateMap<FinalReport, GetByIdFinalReportDto>().ReverseMap();
+
+
+            CreateMap<Booking, CreateBookingDto>().ReverseMap();
+            CreateMap<Booking, ResultBookingDto>().ReverseMap();
+
+            CreateMap<Notification, CreateNotificationDto>().ReverseMap();
+            CreateMap<Notification, ResultNotificationDto>().ReverseMap();
 
         }
 

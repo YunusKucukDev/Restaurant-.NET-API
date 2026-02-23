@@ -38,6 +38,12 @@ namespace Restaurant.WebUI.Services.Catalog.CategoryService
             return await GetAllCategories();
         }
 
+        public async Task<int> GetCategoryCount()
+        {
+            var response = await _httpClient.GetFromJsonAsync<int>("http://localhost:7000/api/Categories/GetCategoryCount");
+            return response;
+        }
+
         public async Task<List<ResultCategoryDto>> GetMenuAsync()
         {
             return await _httpClient.GetFromJsonAsync<List<ResultCategoryDto>>("http://localhost:7000/api/Categories/WithProducts");

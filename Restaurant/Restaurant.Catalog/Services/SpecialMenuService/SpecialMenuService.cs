@@ -37,6 +37,11 @@ namespace Restaurant.Catalog.Services.SpecialMenuService
               return _mapper.Map<GetByIdSpecialMenuDto>(values.FirstOrDefault());
         }
 
+        public async Task<int> GetSpecialMenuCount()
+        {
+            return (int)await _specialMenuCollection.Find(x => true).CountDocumentsAsync();
+        }
+
         public async Task<List<ResultSpecialMenuDto>> GetSpecialMenusAsync()
         {
             var values = _specialMenuCollection.FindAsync(x => true).Result.ToList();

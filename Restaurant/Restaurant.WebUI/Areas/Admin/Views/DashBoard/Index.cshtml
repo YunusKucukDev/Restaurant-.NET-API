@@ -4,5 +4,174 @@
     Layout = "~/Areas/Admin/Views/AdminUIControler/Index.cshtml";
 }
 
-<h1>Index</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="~/matrix-admin-master/assets/libs/jquery/dist/jquery.min.js"></script>
 
+<style>
+    /* Küçük ve şık spinner tasarımı */
+    .stat-spinner {
+        font-size: 1.5rem;
+        opacity: 0.7;
+    }
+    
+    .box h1 strong {
+        min-height: 40px;
+        display: block;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-hover">
+                <div class="box bg-danger text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-account-multiple"></i></h1>
+                    <h6 class="text-white">Anlık Kullanıcı Sayısı</h6>
+                    <h1 class="font-light text-white">
+                        <strong id="clientcount"><i class="fas fa-circle-notch fa-spin stat-spinner"></i></strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-hover">
+                <div class="box bg-cyan text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
+                    <h6 class="text-white">Kategori Sayısı</h6>
+                    <h1 class="font-light text-white">
+                        <strong id="categorycount"><i class="fas fa-circle-notch fa-spin stat-spinner"></i></strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-hover">
+                <div class="box bg-warning text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-food"></i></h1>
+                    <h6 class="text-white">Ürün Sayısı</h6>
+                    <h1 class="font-light text-white">
+                        <strong id="productcount"><i class="fas fa-circle-notch fa-spin stat-spinner"></i></strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-hover">
+                <div class="box bg-success text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-layers"></i></h1>
+                    <h6 class="text-white">Menü Sayısı</h6>
+                    <h1 class="font-light text-white">
+                        <strong id="specialmenucount"><i class="fas fa-circle-notch fa-spin stat-spinner"></i></strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-hover">
+                <div class="box bg-info text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-cart"></i></h1>
+                    <h6 class="text-white">Sipariş Sayısı</h6>
+                    <h1 class="font-light text-white">
+                        <strong id="ordercount"><i class="fas fa-circle-notch fa-spin stat-spinner"></i></strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-hover">
+                <div class="box bg-dark text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-calendar-check"></i></h1>
+                    <h6 class="text-white">Rezervasyon Sayısı</h6>
+                    <h1 class="font-light text-white">
+                        <strong id="bookingcount"><i class="fas fa-circle-notch fa-spin stat-spinner"></i></strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <h4 class="card-title">Anlık Döviz Kurları (1 USD Bazlı)</h4>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Sembol</th>
+                                    <th>Kur Değeri</th>
+                                    <th>İşlem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge badge-success">TRY</span> Türk Lirası</td>
+                                    <td><strong>@Model.TRY.rate.Substring(0, 5) ₺</strong></td>
+                                    <td><i class="fas fa-sync fa-spin text-muted"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-primary">EUR</span> Euro</td>
+                                    <td><strong>@Model.EUR.rate.Substring(0, 5) €</strong></td>
+                                    <td><i class="fas fa-sync fa-spin text-muted"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-warning text-white">GBP</span> Sterlin</td>
+                                    <td><strong>@Model.GBP.rate.Substring(0, 5) £</strong></td>
+                                    <td><i class="fas fa-sync fa-spin text-muted"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-secondary">USD</span> Amerikan Doları</td>
+                                    <td><strong>1 $</strong></td>
+                                    <td><i class="fas fa-check text-success"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7500/signalrhub")
+            .build();
+
+        connection.start().then(function () {
+            console.log("Bağlantı başarılı, veriler bekleniyor...");
+
+            setInterval(() => {
+               connection.invoke("SendCategoryCount");
+               connection.invoke("SendProductCount");
+               connection.invoke("SendSpecialMenuCount");
+               connection.invoke("SendOrderCount");
+               connection.invoke("SendBookingCount");
+               // Hub'da mevcutsa client sayısını da ekleyebilirsiniz
+            }, 1000);
+
+        }).catch(function (err) {
+            console.error("SignalR Hatası: " + err.toString());
+        });
+
+        // Veri geldiğinde .text() fonksiyonu içindeki spinner'ı otomatik olarak siler ve sayıyı yazar.
+        connection.on("ReceiveCategoryCount", (count) => { $("#categorycount").text(count); });
+        connection.on("ReceiveProductCount", (count) => { $("#productcount").text(count); });
+        connection.on("ReceiveSpecialMenuCount", (count) => { $("#specialmenucount").text(count); });
+        connection.on("ReceiveOrderCount", (count) => { $("#ordercount").text(count); });
+        connection.on("ReceiveClientCount", (count) => { $("#clientcount").text(count); });
+        connection.on("ReceiveBookingCount", (count) => { $("#bookingcount").text(count); });
+    });
+
+
+</script>

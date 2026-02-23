@@ -13,6 +13,12 @@ namespace Restaurant.WebUI.Services.Concrete
             _httpClient = httpClient;
         }
 
+        public async Task<int> GetAllUserCount()
+        {
+           return await _httpClient.GetFromJsonAsync<int>("/api/users/getallusercount");
+           
+        }
+
         public async Task<UserDetailViewModel> GetUserInfo()
         {
             return await _httpClient.GetFromJsonAsync<UserDetailViewModel>("/api/users/getuser");

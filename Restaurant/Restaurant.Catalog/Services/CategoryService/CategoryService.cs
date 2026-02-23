@@ -62,7 +62,7 @@ namespace Restaurant.Catalog.Services.CategoryService
             var products = await _productCollection.Find(x => true).ToListAsync(); 
 
             var result = categories
-                .OrderBy(x => x.DisplayOrder)   // 👈 kategori sırası
+                .OrderBy(x => x.DisplayOrder)   
                 .Select(category => new ResultCategoryDto
                 {
                     CategoryId = category.CategoryId,
@@ -71,7 +71,7 @@ namespace Restaurant.Catalog.Services.CategoryService
 
                     Products = products
                         .Where(p => p.CategoryId == category.CategoryId && p.IsAvailable)
-                        .OrderBy(p => p.DisplayOrder)  // 👈 ürün sırası
+                        .OrderBy(p => p.DisplayOrder)  
                         .Select(p => new ResultProductDto
                         {
                             ProductId = p.ProductId,
@@ -88,6 +88,11 @@ namespace Restaurant.Catalog.Services.CategoryService
                 .ToList();
 
             return result;
+        }
+
+        public async Task<int> GetCategoryCount()
+        {
+            return (int)await _categoryCollection.CountDocumentsAsync(category => true);
         }
 
         public async Task UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto)

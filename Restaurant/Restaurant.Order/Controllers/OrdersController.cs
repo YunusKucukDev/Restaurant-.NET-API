@@ -31,6 +31,13 @@ namespace Restaurant.Order.Controllers
             return Ok(values);
         }
 
+        [HttpGet("GetOrderCount")]
+        public async Task<IActionResult> GetOrderCount()
+        {
+            return Ok(await _orderService.GetOrderCount());
+            
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateOrder(CreateOrderDto createOrderDto)
         {

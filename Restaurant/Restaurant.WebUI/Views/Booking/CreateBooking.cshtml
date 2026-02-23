@@ -1,0 +1,132 @@
+﻿@using Restaurant.DtoLayer.CatalogDtos.BookingDtos
+
+@{
+    ViewData["Title"] = "CreateBooking";
+    Layout = "~/Views/UI/Index.cshtml";
+}
+
+@model CreateBookingDto
+
+
+
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 52px;
+        height: 26px;
+        margin-left: 10px;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        background-color: #ccc;
+        border-radius: 26px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: .3s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+    input:checked + .slider {
+        background-color: #28a745;
+    }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+    .status-text {
+        font-weight: 600;
+        margin-left: 10px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <form method="post" asp-action="CreateBooking">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Rezervasyon</h4>
+
+                    <!-- Name -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 text-right col-form-label">İsminiz</label>
+                        <div class="col-sm-8">
+                            <input asp-for="Name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 text-right col-form-label">Soyisminiz</label>
+                        <div class="col-sm-8">
+                            <input asp-for="Surname" class="form-control" />
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 text-right col-form-label">Kişi Sayısı</label>
+                        <div class="col-sm-8">
+                            <input asp-for="NumberOfPeople" type="number" class="form-control" />
+                        </div>
+                    </div>
+
+                    <!-- DisplayOrder -->
+                    <div class="form-group row">
+                        <label class="col-sm-4 text-right col-form-label">Telefon numarası</label>
+                        <div class="col-sm-8">
+                            <input asp-for="PhoneNumber" type="tel" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 text-right col-form-label">Email</label>
+                        <div class="col-sm-8">
+                            <input asp-for="Email" type="email" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 text-right col-form-label">Tarih</label>
+                        <div class="col-sm-8">
+                            <input asp-for="Date" type="date" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-top">
+                    <div class="card-body text-right">
+                        <button type="submit" class="btn btn-primary">
+                            Kaydet
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-3"></div>
+</div>
+
+

@@ -1,16 +1,69 @@
 ﻿@model UserDetailViewModel
 
 @{
-    Layout = null;
+    Layout = "~/Views/UI/Index.cshtml";
 }
 
 <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <div class="container">
     <br /><br /><br />
-    <h3>Kullanıcı Profil Bilgisi</h3>
-    <div class="alert alert-info">Kullanıcı Id:@Model.Id</div>
-    <div class="alert alert-warning">Kullanıcı Adı:@Model.Username</div>
-    <div class="alert alert-info">Ad Soyad:@Model.Name @Model.Surname</div>
-    <div class="alert alert-warning">Email Adresi: @Model.Email</div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4 class="mb-0"><i class="fas fa-user-circle mr-2"></i> Kullanıcı Profil Bilgisi</h4>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item d-flex justify-content-between align-items-center border-0 py-3">
+                            <span><i class="fas fa-id-badge text-muted mr-2"></i> <strong>Kullanıcı ID:</strong></span>
+                            <span class="badge badge-info badge-pill">@Model.Id</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center border-0 py-3 bg-light">
+                            <span><i class="fas fa-user text-muted mr-2"></i> <strong>Kullanıcı Adı:</strong></span>
+                            <span class="text-primary">@Model.Username</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center border-0 py-3">
+                            <span><i class="fas fa-signature text-muted mr-2"></i> <strong>Ad Soyad:</strong></span>
+                            <span>@Model.Name @Model.Surname</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center border-0 py-3 bg-light">
+                            <span><i class="fas fa-envelope text-muted mr-2"></i> <strong>Email Adresi:</strong></span>
+                            <span class="text-dark">@Model.Email</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white text-center py-3">
+                    <a href="#" class="btn btn-outline-primary btn-sm px-4 rounded-pill">Bilgileri Güncelle</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    /* Küçük dokunuşlar */
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        font-weight: 600;
+    }
+
+    .list-group-item {
+        font-size: 1.1rem;
+    }
+
+    .badge-pill {
+        padding: 0.5em 1em;
+        font-size: 0.9rem;
+    }
+
+    .mr-2 {
+        margin-right: 10px;
+    }
+</style>

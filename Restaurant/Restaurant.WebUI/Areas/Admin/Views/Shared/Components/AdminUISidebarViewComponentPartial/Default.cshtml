@@ -3,101 +3,27 @@
         <ul id="sidebarnav" class="p-t-30">
             <li class="sidebar-item">
                 <a target="_blank" class="sidebar-link waves-effect waves-dark sidebar-link" href="https://themewagon.github.io/matrix-admin/" aria-expanded="false">
-                    <i class="mdi mdi-blur-linear">
-
-                    </i><span class="hide-menu">Admin Template</span>
+                    <i class="mdi mdi-monitor-dashboard"></i><span class="hide-menu">Admin Template</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a target="_blank" class="sidebar-link waves-effect waves-dark sidebar-link" href="https://themewagon.github.io/burger/" aria-expanded="false">
-                    <i class="mdi mdi-blur-linear">
-
-                    </i><span class="hide-menu">User Template</span>
+                    <i class="mdi mdi-web"></i><span class="hide-menu">User Template</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Admin/Dashboard/index" aria-expanded="false">
-                    <i class="mdi mdi-view-dashboard">
-
-                    </i><span class="hide-menu">Admin Anasayfa</span>
+                    <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Admin Anasayfa</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-controller="Home" asp-action="Index" aria-expanded="false">
-                    <i class="mdi mdi-chart-bar">
-
-                    </i><span class="hide-menu">Kullanıcı Anasayfa</span>
+                    <i class="mdi mdi-home-outline"></i><span class="hide-menu">Kullanıcı Anasayfa</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Şube İşlemleri</span></a>
-                <ul aria-expanded="false" class="collapse  first-level">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-area="Admin" asp-controller="branch1_information" asp-action="Index" aria-expanded="false">
-                            <i class="mdi mdi-chart-bubble"></i><span class="hide-menu">1.Şube İşlemleri</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-area="Admin" asp-controller="branch2_information" asp-action="Index" aria-expanded="false">
-                            <i class="mdi mdi-border-inside"></i><span class="hide-menu">2.Şube İşlemleri</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Menu İşlemleri</span></a>
-                <ul aria-expanded="false" class="collapse  first-level">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-area="Admin" asp-controller="Category" asp-action="Index" aria-expanded="false">
-                            <i class="mdi alert-cyan"></i><span class="hide-menu">Kategori işlemleri</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-area="Admin" asp-controller="Product" asp-action="Index" aria-expanded="false">
-                            <i class="mdi alert-cyan"></i><span class="hide-menu">Product işlemleri</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-area="Admin" asp-controller="specialMenu" asp-action="Index" aria-expanded="false">
-                            <i class="mdi alert-cyan"></i><span class="hide-menu">Special Menu işlemleri</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Ciro Hesaplama</span></a>
-                <ul aria-expanded="false" class="collapse  first-level">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" asp-area="Admin" asp-controller="Computation" asp-action="Index">
-                            <i class="mdi mdi-all-inclusive"></i>
-                            <span class="hide-menu">Günlük Gelir-Gider </span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" asp-area="Admin" asp-controller="Report" asp-action="Index">
-                            <i class="mdi mdi-all-inclusive"></i>
-                            <span class="hide-menu">Raporlar</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" asp-area="Admin" asp-controller="FixedExpense" asp-action="Index">
-                            <i class="mdi mdi-all-inclusive"></i>
-                            <span class="hide-menu">Ana Giderler</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" asp-area="Admin" asp-controller="FinalReport" asp-action="Index">
-                            <i class="mdi mdi-all-inclusive"></i>
-                            <span class="hide-menu">Final Raporu</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="sidebar-item">
                 <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-area="Admin" asp-controller="About" asp-action="Index" aria-expanded="false">
-                    <i class="mdi alert-cyan"></i><span class="hide-menu">Hakkımızda işlemleri</span>
+                    <i class="mdi mdi-information-outline"></i><span class="hide-menu">Hakkımızda işlemleri</span>
                 </a>
             </li>
 
@@ -107,9 +33,84 @@
                    asp-controller="Discount"
                    asp-action="Index"
                    aria-expanded="false">
-                    <i class="mdi alert-cyan"></i><span class="hide-menu">İndirim Kuponu işlemleri</span>
+                    <i class="mdi mdi-ticket-percent"></i><span class="hide-menu">İndirim Kuponu işlemleri</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Admin/Booking/index" aria-expanded="false">
+                    <i class="mdi mdi-calendar-check"></i><span class="hide-menu">Rezervasyon İşlemleri</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-store"></i><span class="hide-menu">Şube İşlemleri</span></a>
+                <ul aria-expanded="false" class="collapse  first-level">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-area="Admin" asp-controller="branch1_information" asp-action="Index" aria-expanded="false">
+                            <i class="mdi mdi-map-marker"></i><span class="hide-menu">1.Şube İşlemleri</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-area="Admin" asp-controller="branch2_information" asp-action="Index" aria-expanded="false">
+                            <i class="mdi mdi-map-marker-outline"></i><span class="hide-menu">2.Şube İşlemleri</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-silverware-variant"></i><span class="hide-menu">Menu İşlemleri</span></a>
+                <ul aria-expanded="false" class="collapse  first-level">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-area="Admin" asp-controller="Category" asp-action="Index" aria-expanded="false">
+                            <i class="mdi mdi-format-list-bulleted-type"></i><span class="hide-menu">Kategori işlemleri</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-area="Admin" asp-controller="Product" asp-action="Index" aria-expanded="false">
+                            <i class="mdi mdi-food"></i><span class="hide-menu">Product işlemleri</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-area="Admin" asp-controller="specialMenu" asp-action="Index" aria-expanded="false">
+                            <i class="mdi mdi-star-circle"></i><span class="hide-menu">Special Menu işlemleri</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                    <i class="mdi mdi-cash-multiple"></i>
+                    <span class="hide-menu">Ciro Hesaplama</span>
+                </a>
+                <ul aria-expanded="false" class="collapse  first-level">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-area="Admin" asp-controller="Computation" asp-action="Index">
+                            <i class="mdi mdi-calculator"></i>
+                            <span class="hide-menu">Günlük Gelir-Gider </span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-area="Admin" asp-controller="Report" asp-action="Index">
+                            <i class="mdi mdi-file-chart"></i>
+                            <span class="hide-menu">Raporlar</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-area="Admin" asp-controller="FixedExpense" asp-action="Index">
+                            <i class="mdi mdi-cash-multiple"></i>
+                            <span class="hide-menu">Ana Giderler</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-area="Admin" asp-controller="FinalReport" asp-action="Index">
+                            <i class="mdi mdi-file-check"></i>
+                            <span class="hide-menu">Final Raporu</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            
 
         </ul>
     </nav>

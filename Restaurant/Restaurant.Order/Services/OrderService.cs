@@ -51,5 +51,10 @@ namespace Restaurant.Order.Services
 
             return _mapper.Map<List<ResultOrderDto>>(values);
         }
+
+        public async Task<int> GetOrderCount()
+        {
+            return await _context.Orders.CountAsync();
+        }
     }
 }

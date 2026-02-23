@@ -64,5 +64,11 @@ namespace Restaurant.Catalog.Services.ProductService
         {
             await _productCollection.FindOneAndReplaceAsync(x => x.ProductId == updateProductDto.ProductId, _mapper.Map<Product>(updateProductDto));   
         }
+
+        public async Task<int> GetProductCount()
+        {
+            
+            return (int)await _productCollection.Find(x => true).CountDocumentsAsync();
+        }
     }
 }

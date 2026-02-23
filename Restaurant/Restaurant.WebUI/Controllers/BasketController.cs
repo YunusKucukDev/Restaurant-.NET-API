@@ -166,7 +166,6 @@ public class BasketController : Controller
     [HttpDelete]
     public async Task<IActionResult> DeleteBasket()
     {
-        // userId parametresi zaten API tarafında loginService üzerinden alındığı için buraya boş string de gönderebilirsin
         await _basketService.DeleteBasket("");
         return RedirectToAction("Index", "Basket"); 
     }

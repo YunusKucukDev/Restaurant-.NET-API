@@ -46,6 +46,12 @@ namespace Restaurant.WebUI.Services.Catalog.ProductService
             return values;
         }
 
+        public async Task<int> GetProductCount()
+        {
+            var response = await _httpClient.GetFromJsonAsync<int>("http://localhost:7000/api/Products/GetProductCount");
+            return response;
+        }
+
         public async Task UpdateProduct(UpdateProductDto updateProductDto)
         {
             await _httpClient.PutAsJsonAsync("http://localhost:7000/api/Products", updateProductDto);

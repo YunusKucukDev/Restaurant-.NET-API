@@ -9,5 +9,6 @@ namespace Restaurant.Order.Services
         Task CreateAsync(CreateOrderDto dto);
         Task<List<ResultOrderDto>> GetByUserIdAsync(string userId);
         Task<List<ResultOrderDto>> GetByIdAsync(int orderId);   
+        Task<int> GetOrderCount();   
     }
 }

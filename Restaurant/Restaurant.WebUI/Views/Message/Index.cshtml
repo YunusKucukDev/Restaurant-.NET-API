@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UI/Index.cshtml";
+}
+
+<style>
+    #chatWindow {
+        height: 400px;
+        overflow-y: auto;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    .message-bubble {
+        max-width: 70%;
+        margin-bottom: 10px;
+        padding: 8px 15px;
+        border-radius: 15px;
+        position: relative;
+        clear: both;
+    }
+
+    /* Gelen Mesajlar (Sol) */
+    .received {
+        background-color: #ffffff;
+        float: left;
+        border: 1px solid #ddd;
+    }
+
+    /* Giden Mesajlar (Sağ) */
+    .sent {
+        background-color: brown;
+        color: white;
+        float: right;
+    }
+
+    .message-info {
+        display: block;
+        font-size: 0.75rem;
+        margin-top: 3px;
+        opacity: 0.8;
+    }
+</style>
+
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+            <h5 class="mb-0">SignalR Mesaj</h5>
+        </div>
+
+        <div id="chatWindow" class="card-body">
+            <div id="messageList"></div>
+        </div>
+
+        <div class="card-footer bg-light">
+            <div class="row g-2">
+                <input type="hidden" id="userInput" value="@ViewBag.UserName">
+
+                <div class="col-10">
+                    <input type="text" id="messageInput" class="form-control" placeholder="Mesajınızı buraya yazın...">
+                </div>
+                <div class="col-2">
+                    <button id="sendButton" class="btn btn-primary w-100">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="~/matrix-admin-master/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="~/js/chat.js"></script>

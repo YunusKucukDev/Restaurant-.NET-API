@@ -1,0 +1,182 @@
+﻿@using Restaurant.DtoLayer.CatalogDtos.BookingDtos
+@model ResultBookingDto
+
+@{
+    ViewData["Title"] = "Rezervasyon Detayı";
+    Layout = "~/Views/UI/Index.cshtml";
+}
+
+<style>
+    /* Ana Konteynır ve Kart Yapısı */
+    .booking-wrapper {
+        padding: 50px 0;
+        background-color:white;
+    }
+
+    .booking-card {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        background: #fff;
+    }
+
+    /* Üst Başlık Kısmı */
+    .card-header-custom {
+        background: linear-gradient(135deg, #1a1a1a 0%, #3d3d3d 100%);
+        padding: 25px;
+        color: #fff;
+        text-align: center;
+    }
+
+    /* Veri Alanları */
+    .detail-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px transition all 0.3s;
+        border-bottom: 1px solid #eee;
+    }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+    .detail-icon {
+        width: 45px;
+        height: 45px;
+        background: #fdf2e9;
+        color: #e67e22;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-right: 20px;
+    }
+
+    .detail-content label {
+        display: block;
+        margin-bottom: 2px;
+        font-size: 0.85rem;
+        color: #888;
+        text-uppercase;
+        letter-spacing: 1px;
+    }
+
+    .detail-content span {
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 1.1rem;
+    }
+
+    .no-booking-container {
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .no-booking-icon {
+        font-size: 5rem;
+        color: #dcdde1;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .no-booking-title {
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .no-booking-text {
+        color: #7f8c8d;
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+    }
+
+    /* Butonlar */
+    .btn-action {
+        padding: 12px 35px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: transform 0.2s;
+    }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="booking-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+
+                @if (Model != null)
+                {
+                    <div class="booking-card">
+                        <div class="card-header-custom">
+                            <h4 class="mb-0 text-white"><i class="fa fa-utensils mr-2"></i> Rezervasyon Bilgileriniz</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fa fa-user"></i></div>
+                                <div class="detail-content">
+                                    <label>Müşteri</label>
+                                    <span>@Model.Name @Model.Surname</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fa fa-calendar-alt"></i></div>
+                                <div class="detail-content">
+                                    <label>Tarih ve Saat</label>
+                                    <span>@Model.Date</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fa fa-users"></i></div>
+                                <div class="detail-content">
+                                    <label>Kişi Sayısı</label>
+                                    <span>@Model.NumberOfPeople Kişi</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fa fa-phone"></i></div>
+                                <div class="detail-content">
+                                    <label>İletişim</label>
+                                    <span>@Model.PhoneNumber</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fa fa-envelope"></i></div>
+                                <div class="detail-content">
+                                    <label>E-Posta Adresi</label>
+                                    <span>@Model.Email</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-4 text-center">
+                            <p class="text-muted small px-4">Rezervasyon değişikliği için lütfen restoranımızla iletişime geçiniz.</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="booking-card no-booking-container shadow-lg">
+                        <i class="fa fa-calendar-times no-booking-icon"></i>
+                        <h3 class="no-booking-title">Henüz Bir Kayıt Yok</h3>
+                        <p class="no-booking-text">Görünüşe göre sistemde kayıtlı bir rezervasyonunuz bulunmuyor.</p>
+                        <a href="/Booking/CreateBooking" class="btn btn-warning btn-action">
+                            <i class="fa fa-plus-circle mr-2"></i>Hemen Rezervasyon Yap
+                        </a>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

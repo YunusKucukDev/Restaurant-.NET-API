@@ -8,6 +8,7 @@ namespace Restaurant.Catalog.Services.CategoryService
         Task<List<CategorySelectDto>> GetCategoriesForSelectAsync();
         Task<List<ResultCategoryDto>> GetCategoriesWithProductsAsync();
         Task<GetByIdCategoryDto> GetByIdCategoryAsync(string id);
+        Task<int> GetCategoryCount();
         Task CreateCategoryAsync(CreateCategoryDto createCategoryDto);
         Task UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto);
         Task DeleteCategoryAsync(string id);

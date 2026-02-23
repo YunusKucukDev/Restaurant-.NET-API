@@ -9,6 +9,6 @@ namespace Restaurant.WebUI.Services.Catalog.SpecialMenuService
         Task CreateSpecialMenu(CreateSpecialMenuDtos createSpecialMenuDtos);
         Task DeleteSpecialMenu(string id);
         Task UpdateSpecialMenu(UpdateSpecialMenuDtos updateSpecialMenuDtos);
-        
+        Task<int> GetSpecialMenuCount();
     }
 }

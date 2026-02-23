@@ -32,8 +32,14 @@ namespace Restaurant.Catalog.Controllers
             return Ok(product);
         }
 
+        [HttpGet("GetProductCount")]
+        public async Task<IActionResult> GetCategoryCount()
+        {
+            var count = await _productService.GetProductCount();
+            return Ok(count);
+        }
+
         [HttpGet("GetByCategoryIdProducts/{id}")]
-        
         public async Task<IActionResult> GetByCategoryIdProducts(string id)
         {
             var product = await _productService.GetByCategoryIdProducts(id);

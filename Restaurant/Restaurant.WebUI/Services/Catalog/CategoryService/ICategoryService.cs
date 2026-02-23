@@ -8,7 +8,7 @@ namespace Restaurant.WebUI.Services.Catalog.CategoryService
         Task<List<ResultCategoryDto>> GetCategoriesForSelect();
         Task<List<ResultCategoryDto>> GetMenuAsync();
 
-
+        Task<int> GetCategoryCount();
         Task<UpdateCategoryDto> GetByIdCategory(string categoryId);
         Task CreateCategory(CreateCategoryDto createCategoryDto);
         Task UpdateCategory(UpdateCategoryDto updateCategoryDto);

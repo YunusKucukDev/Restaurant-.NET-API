@@ -33,6 +33,13 @@ namespace Restaurant.Catalog.Controllers
             return Ok(result);
         }
 
+        [HttpGet("GetSpecialMenuCount")]
+        public async Task<IActionResult> GetCategoryCount()
+        {
+            var count = await _specialMenuService.GetSpecialMenuCount();
+            return Ok(count);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateSpecialMenu(CreateSpecialMenuDto createSpecialMenuDto)
         {

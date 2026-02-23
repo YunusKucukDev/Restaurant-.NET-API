@@ -34,6 +34,12 @@ namespace Restaurant.WebUI.Services.Catalog.SpecialMenuService
             return values;
         }
 
+        public async Task<int> GetSpecialMenuCount()
+        {
+            var response = await _httpClient.GetFromJsonAsync<int>("http://localhost:7000/api/SpecialMenus/GetSpecialMenuCount");
+            return response;
+        }
+
         public async Task UpdateSpecialMenu(UpdateSpecialMenuDtos updateSpecialMenuDtos)
         {
             await _httpClient.PutAsJsonAsync<UpdateSpecialMenuDtos>("http://localhost:7000/api/SpecialMenus", updateSpecialMenuDtos);
