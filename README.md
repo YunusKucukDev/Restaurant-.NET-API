@@ -1,178 +1,68 @@
 🍽️ Restaurant Microservices Project
 
-Backend-focused • Learning-oriented • Real-world inspired
+Bu proje, yeni mezun bir backend geliştirici olarak mikroservis mimarisi, dağıtık sistemler ve modern .NET ekosistemi üzerindeki yetkinliklerimi sergilemek amacıyla geliştirilmiş, uçtan uca bir restoran yönetim ekosistemidir.
 
-Bu proje, yeni mezun bir backend geliştirici olarak mikroservis mimarisi, dağıtık sistemler ve modern .NET backend geliştirme konularında kendimi geliştirmek ve öğrendiklerimi gerçekçi bir senaryo üzerinden göstermek amacıyla geliştirilmiştir.
+> **Motto:** Sadece çalışan bir kod değil; "neden bu teknoloji?" sorusuna mimari cevaplar verebilen sürdürülebilir bir yapı.
 
-Amacım; yalnızca çalışan bir uygulama yapmak değil,
-neden böyle tasarladım, nerede neyi kullandım sorularına mantıklı cevaplar verebilen bir yapı kurmaktır.
+---
 
-🎯 Proje Amacı
+## 🎯 Proje Odak Noktaları
 
-Bu projede özellikle şunları öğrenmeye ve uygulamaya odaklandım:
+Bu çalışmada özellikle aşağıdaki modern yazılım geliştirme pratiklerine odaklanılmıştır:
+* **Microservices Orchestration:** Servislerin sorumluluklarına göre (Domain-Driven) ayrıştırılması.
+* **Polyglot Persistence:** İhtiyaca göre farklı veri saklama çözümlerinin (NoSQL, Relational, In-Memory) entegrasyonu.
+* **Centralized Security:** IdentityServer4 ile merkezi kimlik doğrulama ve yetkilendirme.
+* **API Management:** Ocelot üzerinden trafik yönetimi ve güvenlik kalkanı.
 
-Mikroservis mimarisinin temel prensipleri
+---
 
-Servislerin sorumluluklarına göre ayrılması
+## 🏗️ Genel Mimari ve Teknoloji Yığını
 
-Farklı veri saklama çözümlerinin doğru yerde kullanılması
+Sistem, bir **API Gateway** arkasında konumlanmış, birbiriyle izole ve kendi veri kaynaklarına sahip mikroservislerden oluşur.
 
-Token tabanlı kimlik doğrulama (JWT)
+### 🛠️ Teknolojik Altyapı
+| Servis / Araç | Teknoloji | Veri Kaynağı | Açıklama |
+| :--- | :--- | :--- | :--- |
+| **API Gateway** | Ocelot | - | Tüm istekler için tek giriş noktası ve yönlendirme. |
+| **Auth Service** | IdentityServer4 | MSSQL | JWT & OAuth2 tabanlı merkezi güvenlik. |
+| **Catalog** | .NET 8 API | **MongoDB** | Esnek şema ve yüksek okuma performansı. |
+| **Basket** | .NET 8 API | **Redis** | In-Memory hızında sepet yönetimi. |
+| **Order** | .NET 8 API | **MSSQL (EF Core)** | İlişkisel veri ve kompleks sorgu yönetimi. |
+| **Discount** | .NET 8 API | **PostgreSQL (Dapper)** | Mikro-ORM ile yüksek performanslı kupon yönetimi. |
+| **Web UI** | ASP.NET Core MVC | - | Kullanıcı deneyimi ve servis tüketimi. |
 
-API Gateway kullanımı
+---
 
-Docker ile çok servisli uygulama çalıştırma
+## 🧠 Mimari Kararlar: "Neden?"
 
-Bu proje benim için bir öğrenme + uygulama sürecinin çıktısıdır.
+* **Neden MongoDB (Catalog)?** Menü öğeleri ve ürün özellikleri sık sık değişebildiği için esnek (schemaless) bir yapıya ihtiyaç duyulmuştur.
+* **Neden Redis (Basket)?** Kullanıcı sepeti gibi geçici ama hızlı erişilmesi gereken veriler için en optimize çözüm olduğu için tercih edilmiştir.
+* **Neden Dapper (Discount)?** İndirim hesaplamaları gibi basit ama yoğun işlemlerde EF Core'un getirdiği yükü azaltmak ve ham SQL performansına yaklaşmak hedeflenmiştir.
+* **Neden IdentityServer4?** Her serviste ayrı ayrı Auth katmanı yazmak yerine, güvenliği merkezi bir otoriteye devrederek (SoC) standartlara uygun bir yapı kurulmuştur.
 
-🧠 Neden Mikroservis?
+---
 
-Monolit bir yapı yerine mikroservis tercih etmemin nedeni:
+## 🧩 Kullanılan Kütüphaneler & Araçlar
+* **AutoMapper:** Nesne eşleme (DTO mapping) süreçlerini optimize etmek için.
+* **FluentValidation:** İş kurallarını ve validasyonları temiz bir yapıda tutmak için.
+* **Docker & Docker Compose:** Tüm ekosistemi tek bir komutla ayağa kaldırabilmek için.
+* **SignalR:** Anlık sipariş takibi ve canlı destek modülleri için.
 
-Her servisin tek bir işi yapmasını sağlamak
+---
 
-Gerçek hayatta sık kullanılan mimarileri öğrenmek
+## 🐳 Kurulum ve Çalıştırma
 
-Servislerin birbirinden bağımsız çalışabilmesini görmek
+Projeyi yerel ortamınızda çalıştırmak için Docker yüklü olması yeterlidir:
 
-İleride yeni servisler eklenebilecek bir yapı kurmak
+```bash
+# Projeyi klonlayın
+git clone [https://github.com/YunusKucukDev/Restaurant-.NET-API](https://github.com/YunusKucukDev/Restaurant-.NET-API)
 
-Bu proje, mikroservis mimarisini temel seviyeden ileri seviyeye doğru öğrenme amacıyla tasarlanmıştır.
+# Proje dizinine gidin
+cd Restaurant-.NET-API
 
-🏗️ Genel Mimari
-
-Sistem; bir API Gateway, bir Authentication servisi ve farklı iş alanlarına ayrılmış mikroservislerden oluşur.
-
-İstemci (WebUI), tüm istekleri Ocelot API Gateway üzerinden yapar.
-Servisler doğrudan dış dünyaya açık değildir.
-
-🔐 IdentityServer4 – Authentication Service
-
-Kullanıcı kimlik doğrulama
-
-JWT token üretimi
-
-OAuth2 / OpenID Connect temelleri
-
-Servislerin güvenli şekilde haberleşmesi
-
-Bu servis sayesinde güvenlik her serviste ayrı ayrı yazılmamıştır.
-
-🚪 Ocelot API Gateway
-
-Tek giriş noktası
-
-İstek yönlendirme (routing)
-
-Token kontrolü
-
-Servislerin dışarıdan gizlenmesi
-
-API Gateway kullanarak merkezi bir kontrol noktası oluşturmayı hedefledim.
-
-🍱 Catalog Microservice (MongoDB)
-
-Ürünler
-
-Kategoriler
-
-Menü bilgileri
-
-Esnek veri yapısı ve okuma performansı nedeniyle MongoDB kullanılmıştır.
-
-🛒 Basket Microservice (Redis)
-
-Kullanıcı sepet bilgileri
-
-Hızlı okuma / yazma
-
-Geçici veri yönetimi
-
-Sepet verileri için Redis (In-Memory) kullanılarak performans kazanımı hedeflenmiştir.
-
-🏷️ Discount Microservice (Dapper)
-
-İndirim kuponları
-
-Kampanyalar
-
-Bu serviste performansı daha yakından gözlemlemek için Dapper kullanılmıştır.
-
-📦 Order Microservice (EF Core)
-
-Siparişler
-
-Sipariş detayları
-
-Adres bilgileri
-
-İlişkisel veri yapısı nedeniyle EF Core + MSSQL tercih edilmiştir.
-
-💻 WebUI (ASP.NET Core MVC)
-
-Kullanıcı arayüzü
-
-API Gateway üzerinden servis tüketimi
-
-Token bazlı istekler
-
-Frontend, backend servisleri test edebilmek için sade tutulmuştur.
-
-🧩 Kullanılan Teknolojiler & Araçlar
-
-ASP.NET Core
-
-Entity Framework Core
-
-Dapper
-
-MongoDB
-
-Redis
-
-IdentityServer4
-
-Ocelot
-
-AutoMapper
-
-FluentValidation
-
-Docker & Docker Compose
-
-Postman
-
-🐳 Kurulum
+# Tüm servisleri ayağa kaldırın
 docker-compose up -d
-
-
-Tüm servisler ayağa kalktıktan sonra WebUI üzerinden uygulama kullanılabilir.
-
-🚀 Öğrenme & Geliştirme Planı
-
-Bu projeyi geliştirmeye devam ediyorum. Planladığım eklemeler:
-
-Payment Microservice
-
-RabbitMQ ile asenkron iletişim
-
-Notification Service
-
-Unit & Integration Tests
-
-Merkezi loglama (ELK)
-
-✨ Son Söz
-
-Bu proje;
-
-Mikroservis mimarisini öğrenme sürecimi
-
-Backend geliştirme yaklaşımımı
-
-Gerçek hayata yakın bir sistem kurma isteğimi
-
-yansıtan bir çalışmadır.
 
 <img width="1917" height="908" alt="indirimkuponu" src="https://github.com/user-attachments/assets/7ae67c2e-3cfb-4329-9f8a-19990fe33574" />
 <img width="1917" height="908" alt="gelirgidergünlükgece" src="https://github.com/user-attachments/assets/b721f848-6543-469b-845d-b1724aa3c332" />
