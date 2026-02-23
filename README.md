@@ -174,12 +174,28 @@ Gerçek hayata yakın bir sistem kurma isteğimi
 
 yansıtan bir çalışmadır.
 
-<img width="1202" height="1600" alt="folder" src="https://github.com/user-attachments/assets/149e4e0e-6c99-44e9-be75-b3273f0e7e7b" />
-<img width="1919" height="1600" alt="8" src="https://github.com/user-attachments/assets/d784bea8-c4cf-403a-8217-5063d6fe9d5a" />
-<img width="1918" height="1600" alt="7" src="https://github.com/user-attachments/assets/3de97721-31fa-485e-8b07-10a5d2cdebd1" />
-<img width="1916" height="1600" alt="5" src="https://github.com/user-attachments/assets/6fedcb65-993c-4ecf-843d-9548a954dd3c" />
-<img width="1912" height="1600" alt="4" src="https://github.com/user-attachments/assets/958f5716-1ea7-4a09-9ee2-1d1be403973f" />
-<img width="1914" height="1600" alt="3" src="https://github.com/user-attachments/assets/1492bbb3-c9bf-4ad3-a8c5-4f217b301eaa" />
-<img width="1907" height="1600" alt="2" src="https://github.com/user-attachments/assets/86e855fe-807e-462b-86fc-f3452dc0b1c8" />
-<img width="1917" height="1600" alt="1" src="https://github.com/user-attachments/assets/a61c80f1-84b1-4bff-b0bc-c8762cfb408d" />
+<img width="1917" height="908" alt="indirimkuponu" src="https://github.com/user-attachments/assets/7ae67c2e-3cfb-4329-9f8a-19990fe33574" />
+<img width="1917" height="908" alt="gelirgidergünlükgece" src="https://github.com/user-attachments/assets/b721f848-6543-469b-845d-b1724aa3c332" />
+<img width="1917" height="908" alt="gelirgidergünlük" src="https://github.com/user-attachments/assets/1865a3ba-5853-444c-abef-d5b613eaf9d9" />
+<img width="1917" height="908" alt="geçmişsipariş" src="https://github.com/user-attachments/assets/206dcb07-9e6d-4af8-9432-44d84efc41fc" />
+<img width="1919" height="908" alt="FinalRapor" src="https://github.com/user-attachments/assets/98f23a66-16e9-4037-abb4-b3423254ecd2" />
+<img width="1917" height="908" alt="Dönemselmaliyetanalizi" src="https://github.com/user-attachments/assets/ed0c0926-ad79-4686-a0fe-ab74939844db" />
+<img width="1918" height="908" alt="Cart" src="https://github.com/user-attachments/assets/23b61d33-dfe0-4614-84b5-4dda278eaa83" />
+<img width="420" height="813" alt="anasayfa2" src="https://github.com/user-attachments/assets/32e9c79b-b963-4c1e-9fd1-00eca0d9f30e" />
+<img width="1899" height="906" alt="anasayfa1" src="https://github.com/user-attachments/assets/a68d5830-91bb-4d41-9fbe-729f37593652" />
+<img width="1919" height="908" alt="adminŞubeİşlemleri" src="https://github.com/user-attachments/assets/029a9b99-4409-4e24-be5d-5a675408ba8c" />
+<img width="1917" height="909" alt="AdminRezervasyon" src="https://github.com/user-attachments/assets/49fc43d3-2419-47e9-ba9f-97a607c39554" />
+<img width="1917" height="908" alt="AdminKategoriilemleri" src="https://github.com/user-attachments/assets/6a09ebda-9be0-480c-8b33-e6a34997e8e1" />
+<img width="1917" height="911" alt="adminAnasayfa" src="https://github.com/user-attachments/assets/428ddf85-c882-4dd2-92f2-e0209ec28508" />
+<img width="1917" height="913" alt="Ürünişlemleri" src="https://github.com/user-attachments/assets/9837f126-29f3-469f-a82b-d0efa4f6dece" />
+<img width="1917" height="908" alt="rezervasyon2" src="https://github.com/user-attachments/assets/89036c10-3fe6-4706-9c77-aa2b33da87ac" />
+<img width="1917" height="910" alt="rezervasyon1" src="https://github.com/user-attachments/assets/fcb842ba-d676-439c-80da-5dd7710d20eb" />
+<img width="1919" height="911" alt="raporlar" src="https://github.com/user-attachments/assets/6d153cb1-d6e9-436e-a494-a32301d8532f" />
+<img width="1917" height="908" alt="PaymentSucces" src="https://github.com/user-attachments/assets/5804255b-6f3f-4367-a6f9-2900c878a70a" />
+<img width="1919" height="910" alt="payment" src="https://github.com/user-attachments/assets/0cdf1d43-a8c0-48b6-b543-e7828b23327f" />
+<img width="1917" height="908" alt="orderDetail" src="https://github.com/user-attachments/assets/5b5914e1-40bd-4661-8c9c-d0e2ddcdd78d" />
+<img width="1917" height="908" alt="order" src="https://github.com/user-attachments/assets/2791dc6a-4b31-4c08-af97-f8b8846414ca" />
+<img width="1917" height="912" alt="menuişlmeleri" src="https://github.com/user-attachments/assets/ccdba448-a30b-4bf0-b026-740a0b0c6632" />
+<img width="1919" height="908" alt="menu1" src="https://github.com/user-attachments/assets/9e30c977-907d-4acb-8e7d-28b29c40eacb" />
+
 
